@@ -9,11 +9,6 @@ export default function Home() {
           <h1>Confirming configuration setup.</h1>
           <p>Checking out separate branch for different changes.</p>
         </div>
-        <div className={styles.ctas}>
-          <a>
-            Testing that this branch is not auto-deployed to vercel preview.
-          </a>
-        </div>
       </main>
     </div>
   );
