@@ -43,6 +43,9 @@ export function Hero() {
           Contact me
         </Button>
       </div>
+      <p className="mt-4 text-body-md text-primary-text">
+        More content to follow...
+      </p>
     </section>
   );
 }
