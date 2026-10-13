@@ -2,6 +2,7 @@ import Link from "next/link";
 import { StickyHeader } from "@/components/home-page/sticky-header";
 import { MobileNav } from "@/components/home-page/mobile-nav";
 import { Button } from "@/components/ui/button";
+import { DisplayPreferences } from "@/components/home-page/display-preferences";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -60,9 +61,7 @@ export function SiteHeader() {
               </NavigationMenuList>
             </NavigationMenu>
 
-            <Button size="lg" type="button">
-              Display preferences
-            </Button>
+            <DisplayPreferences />
           </div>
 
           {/* Mobile: below md */}
