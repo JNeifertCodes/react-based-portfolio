@@ -13,91 +13,110 @@ html {
     scroll-behavior: smooth;
   }
 }
+
 :root {
-  --panel-background: #f7fbfc;
-  --header-background: #eae0ff;
-  --primary-text: #4338ca;
-  --primary-button-text: #4338ca;
-  --primary-button-border: #c7b8f5;
-  --primary-button-fill: #ffffff;
-  --secondary-button-text: #ffffff;
-  --secondary-button-border: #1f2140;
-  --secondary-button-fill: #4338ca;
-  --technology-chip-fill: #ede9fe;
-  --technology-chip-text: #4338ca;
-  --technology-chip-border: #4338ca;
-  --component-card-border: #c7b8f5;
-  --component-card-border-active: #6366d6;
-  --component-card-fill: #ffffff;
-  --contact-button-border: #c7b8f5;
-  --contact-button-fill: #f3f0ff;
-  --contact-button-text: #4338ca;
-  --contact-button-border-active: #8276b8;
-  --contact-button-fill-active: #f3f0ff;
-  --contact-button-text-active: #4338ca;
+  --background: #f7fbfc;
+  --foreground: #4338ca;
+  --card: #ffffff;
+  --card-foreground: #4338ca;
+  --popover: #ffffff;
+  --popover-foreground: #4338ca;
+  --border: #c7b8f5;
+
+  /* Sticky header */
+  --navbar-header-bg: #eae0ff;
+
+  /* Primary Button */
+  --primary: #ffffff;
+  --primary-foreground: #4338ca;
+
+  /* Secondary Button */
+  --secondary: #4338ca;
+  --secondary-foreground: #ffffff;
+
+  /* Contact button */
+  --muted: #f3f0ff;
+  --muted-foreground: #4338ca;
+
+  /* Technology chip */
+  --accent: #ede9fe;
+  --accent-foreground: #4338ca;
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --input: #c7b8f5;
+  --ring: #6a12ad;
+  --radius: 0.5rem;
 }
 
 .dark {
-  --panel-background: #0f1020;
-  --header-background: #0f0030;
-  --primary-text: #e9d7ff;
-  --primary-button-text: #e9d7ff;
-  --primary-button-border: #4338ca;
-  --primary-button-fill: #171a2d;
-  --secondary-button-text: #ffffff;
-  --secondary-button-border: #1f2140;
-  --secondary-button-fill: #4338ca;
-  --technology-chip-fill: #5d1d95;
-  --technology-chip-text: #ffffff;
-  --technology-chip-border: #ffffff;
-  --component-card-border: #171a2d;
-  --component-card-border-active: #a5a9f5;
-  --component-card-fill: #171a2d;
-  --contact-button-border: #2b2f4a;
-  --contact-button-fill: #0f1020;
-  --contact-button-text: #e9d7ff;
-  --contact-button-border-active: #8b87c8;
-  --contact-button-fill-active: #1c1c34;
-  --contact-button-text-active: #e9d7ff;
+  --background: #0f1020;
+  --foreground: #e9d7ff;
+  --card: #171a2d;
+  --card-foreground: #e9d7ff;
+  --popover: #171a2d;
+  --popover-foreground: #e9d7ff;
+  --border: #171a2d;
+
+  /* Sticky header */
+  --navbar-header-bg: #0f0030;
+
+  /* Primary Button */
+  --primary: #171a2d;
+  --primary-foreground: #e9d7ff;
+
+  /* Secondary Button */
+  --secondary: #4338ca;
+  --secondary-foreground: #ffffff;
+
+  /* Contact button */
+  --muted: #0f1020;
+  --muted-foreground: #e9d7ff;
+
+  /* technology chip */
+  --accent: #5d1d95;
+  --accent-foreground: #ffffff;
+
+  --input: #4338ca;
+  --ring: #a5a9f5;
 }
 
 @theme inline {
-  --color-panel-background: var(--panel-background);
-  --color-header-background: var(--header-background);
-  --color-primary-text: var(--primary-text);
-  --color-primary-button-text: var(--primary-button-text);
-  --color-primary-button-border: var(--primary-button-border);
-  --color-primary-button-fill: var(--primary-button-fill);
-  --color-secondary-button-text: var(--secondary-button-text);
-  --color-secondary-button-border: var(--secondary-button-border);
-  --color-secondary-button-fill: var(--secondary-button-fill);
-  --color-technology-chip-fill: var(--technology-chip-fill);
-  --color-technology-chip-text: var(--technology-chip-text);
-  --color-technology-chip-border: var(--technology-chip-border);
-  --color-component-card-border: var(--component-card-border);
-  --color-component-card-border-active: var(--component-card-border-active);
-  --color-component-card-fill: var(--component-card-fill);
-  --color-contact-button-border: var(--contact-button-border);
-  --color-contact-button-fill: var(--contact-button-fill);
-  --color-contact-button-text: var(--contact-button-text);
-  --color-contact-button-border-active: var(--contact-button-border-active);
-  --color-contact-button-fill-active: var(--contact-button-fill-active);
-  --color-contact-button-text-active: var(--contact-button-text-active);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-navbar-header-bg: var(--navbar-header-bg);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --radius-md: var(--radius);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-  --text-heading-lg: 4rem; /* 64px */
+  --text-heading-lg: 4rem;
   --text-heading-lg--font-weight: 700;
 
-  --text-heading-md: 1.625rem; /* 26px */
+  --text-heading-md: 1.625rem;
   --text-heading-md--font-weight: 600;
 
-  --text-body-lg: 1.125rem; /* 18px */
+  --text-body-lg: 1.125rem;
   --text-body-lg--font-weight: 400;
 
-  --text-body-md: 1rem; /* 16px */
+  --text-body-md: 1rem;
   --text-body-md--font-weight: 500;
 
-  --text-body-sm: 0.875rem; /* 14px */
+  --text-body-sm: 0.875rem;
   --text-body-sm--font-weight: 400;
 }

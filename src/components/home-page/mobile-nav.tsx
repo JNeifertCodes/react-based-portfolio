@@ -34,12 +34,10 @@ export function MobileNav({ links }: { links: NavLink[] }) {
 
       <SheetContent
         side="right"
-        className="w-72 border-l border-component-card-border bg-header-background p-6 text-primary-text"
+        className="w-72 border-l border-border bg-navbar-header-bg p-6"
       >
         <SheetHeader className="p-0">
-          <SheetTitle className="text-body-md font-normal text-primary-text">
-            Menu
-          </SheetTitle>
+          <SheetTitle className="text-body-md font-normal">Menu</SheetTitle>
         </SheetHeader>
 
         <nav aria-label="Mobile">
@@ -49,7 +47,7 @@ export function MobileNav({ links }: { links: NavLink[] }) {
                 <a
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block border-b border-component-card-border py-4 text-body-lg text-primary-text underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-text"
+                  className="block border-b border-border py-4 text-body-lg underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
                 >
                   {link.label}
                 </a>

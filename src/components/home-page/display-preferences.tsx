@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useTheme } from "@wrksz/themes/client";
-import { Check, Settings2 } from "lucide-react";
+import { Check } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,9 +22,6 @@ const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 const MOBILE_QUERY = "(max-width: 639.98px)";
 const VIEWPORT_GUTTER = 16;
 const SIDE_OFFSET = 8;
-
-const focusRing =
-  "outline-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-button-fill";
 
 function readStoredMotion(): boolean | null {
   try {
@@ -149,11 +146,7 @@ export function DisplayPreferences() {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
         ref={triggerRef}
-        render={
-          <Button
-            className={`border-primary-button-border bg-primary-button-fill ${focusRing}`}
-          />
-        }
+        render={<Button className={`border-input hover:underline`} />}
       >
         Display preferences
       </PopoverTrigger>
@@ -168,17 +161,17 @@ export function DisplayPreferences() {
             ? "pointer-events-none fixed! inset-0! flex! items-center! justify-center! transform-none! translate-none! p-4"
             : undefined
         }
-        className="pointer-events-auto max-h-[calc(100dvh-2rem)] w-[min(22rem,calc(100vw-2rem))] gap-0 overflow-y-auto rounded-2xl border border-component-card-border bg-component-card-fill p-6 text-primary-text"
+        className="pointer-events-auto max-h-[calc(100dvh-2rem)] w-[min(22rem,calc(100vw-2rem))] gap-0 overflow-y-auto rounded-2xl border border-border p-6"
       >
         <PopoverHeader className="mb-6">
-          <PopoverTitle className="text-heading-md text-primary-text">
+          <PopoverTitle className="text-heading-md">
             Display preferences
           </PopoverTitle>
         </PopoverHeader>
 
         {/* Theme */}
         <div className="flex flex-col gap-3">
-          <span id={themeLabelId} className="text-body-lg text-primary-text">
+          <span id={themeLabelId} className="text-body-lg">
             Theme
           </span>
 
@@ -190,13 +183,13 @@ export function DisplayPreferences() {
               const next = value[0];
               if (next === "light" || next === "dark") setTheme(next);
             }}
-            className="grid w-full grid-cols-2 gap-1 rounded-xl border border-contact-button-border-active bg-contact-button-fill p-1"
+            className="grid w-full grid-cols-2 gap-1 rounded-xl border bg-muted p-1"
           >
             {themeOptions.map((option) => (
               <ToggleGroupItem
                 key={option.value}
                 value={option.value}
-                className={`h-10 rounded-lg text-body-lg text-contact-button-text hover:not-aria-pressed:bg-component-card-border-active hover:not-aria-pressed:text-secondary-button-text dark:hover:not-aria-pressed:text-panel-background aria-pressed:bg-secondary-button-fill aria-pressed:text-secondary-button-text ${focusRing}`}
+                className={`h-10 rounded-lg text-body-lg text-muted-foreground  hover:not-aria-pressed:text-secondary-foreground dark:hover:not-aria-pressed:text-background aria-pressed:bg-secondary aria-pressed:text-secondary-foreground hover:underline`}
               >
                 {currentTheme === option.value && (
                   <Check aria-hidden="true" className="size-5" />
@@ -207,24 +200,18 @@ export function DisplayPreferences() {
           </ToggleGroup>
         </div>
 
-        <Separator className="my-6 bg-component-card-border" />
+        <Separator className="my-6" />
 
         {/* Animations */}
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between gap-4">
-            <span
-              id={animationsLabelId}
-              className="text-body-lg text-primary-text"
-            >
+            <span id={animationsLabelId} className="text-body-lg">
               Animations
             </span>
 
             <div className="flex items-center gap-3">
               {/* Visible state text; the switch itself announces checked state. */}
-              <span
-                aria-hidden="true"
-                className="text-body-lg text-primary-text"
-              >
+              <span aria-hidden="true" className="text-body-lg">
                 {animations ? "On" : "Off"}
               </span>
               <Switch
@@ -232,14 +219,14 @@ export function DisplayPreferences() {
                 onCheckedChange={setAnimations}
                 aria-labelledby={animationsLabelId}
                 aria-describedby={animationsDescriptionId}
-                className={`h-7 w-12 border border-contact-button-border-active bg-contact-button-fill aria-checked:bg-secondary-button-fill [&_[data-slot=switch-thumb]]:size-5 [&_[data-slot=switch-thumb]]:border [&_[data-slot=switch-thumb]]:border-contact-button-border-active [&_[data-slot=switch-thumb]]:bg-component-card-fill ${focusRing}`}
+                className={`h-7 w-12 border data-unchecked:bg-muted data-checked:bg-secondary [&_[data-slot=switch-thumb]]:size-5 [&_[data-slot=switch-thumb]]:border [&_[data-slot=switch-thumb]]:border- [&_[data-slot=switch-thumb]]:bg-card`}
               />
             </div>
           </div>
 
           <PopoverDescription
             id={animationsDescriptionId}
-            className="text-body-sm text-primary-text"
+            className="text-body-sm"
           >
             Motion initially follows your device&rsquo;s reduced-motion
             preference. You can override it here.

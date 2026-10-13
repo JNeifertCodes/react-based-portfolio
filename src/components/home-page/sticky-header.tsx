@@ -59,7 +59,7 @@ export function StickyHeader({ children }: { children: React.ReactNode }) {
   return (
     <header
       data-compact={compact}
-      className="group sticky top-0 z-50 mb-0 border-b border-transparent bg-header-background transition-[margin,border-color,box-shadow] duration-200 ease-out motion-reduce:transition-none data-[compact=true]:mb-10 data-[compact=true]:border-component-card-border data-[compact=true]:shadow-sm"
+      className="group sticky top-0 z-50 mb-0 border-b border-transparent bg-navbar-header-bg transition-[margin,border-color,box-shadow] duration-200 ease-out motion-reduce:transition-none data-[compact=true]:mb-10 data-[compact=true]:border-border data-[compact=true]:shadow-sm"
     >
       {children}
     </header>
