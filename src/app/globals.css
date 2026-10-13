@@ -2,8 +2,18 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+html {
+  scroll-padding-top: 7rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
 :root {
   --panel-background: #f7fbfc;
+  --header-background: #eae0ff;
   --primary-text: #4338ca;
   --primary-button-text: #4338ca;
   --primary-button-border: #c7b8f5;
@@ -27,6 +37,7 @@
 
 .dark {
   --panel-background: #0f1020;
+  --header-background: #0f0030;
   --primary-text: #e9d7ff;
   --primary-button-text: #e9d7ff;
   --primary-button-border: #4338ca;
@@ -50,6 +61,7 @@
 
 @theme inline {
   --color-panel-background: var(--panel-background);
+  --color-header-background: var(--header-background);
   --color-primary-text: var(--primary-text);
   --color-primary-button-text: var(--primary-button-text);
   --color-primary-button-border: var(--primary-button-border);

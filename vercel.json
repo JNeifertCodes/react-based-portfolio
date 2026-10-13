@@ -2,8 +2,7 @@
   "git": {
     "deploymentEnabled": {
       "main": true,
-      "feature/**": false,
-      "clean-house-test": true
+      "feature/**": true
     }
   }
 }

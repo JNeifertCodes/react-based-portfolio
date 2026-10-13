@@ -1,5 +1,5 @@
-import { SiteHeader } from "@/app/site-header";
-import { Hero } from "@/app/hero";
+import { SiteHeader } from "@/components/home-page/site-header";
+import { Hero } from "@/components/home-page/hero";
 
 export default function Home() {
   return (
