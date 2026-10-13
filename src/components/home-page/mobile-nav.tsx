@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { MenuIcon } from "lucide-react";
+import { DisplayPreferences } from "@/components/home-page/display-preferences";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -57,9 +58,7 @@ export function MobileNav({ links }: { links: NavLink[] }) {
           </ul>
         </nav>
 
-        <Button size="lg" type="button" className="mt-6 w-full justify-center">
-          Display preferences
-        </Button>
+        <DisplayPreferences />
       </SheetContent>
     </Sheet>
   );

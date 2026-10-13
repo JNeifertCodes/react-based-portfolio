@@ -19,9 +19,12 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 const MOTION_STORAGE_KEY = "motion-preference";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+const MOBILE_QUERY = "(max-width: 639.98px)";
+const VIEWPORT_GUTTER = 16;
+const SIDE_OFFSET = 8;
 
 const focusRing =
-  "outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-button-fill";
+  "outline-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-button-fill";
 
 function readStoredMotion(): boolean | null {
   try {
@@ -77,15 +80,62 @@ function useAnimationsPreference() {
   return [enabled, update] as const;
 }
 
+function usePopoverPlacement(open: boolean) {
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const [popup, setPopup] = React.useState<HTMLDivElement | null>(null);
+  const [centered, setCentered] = React.useState(false);
+
+  const update = React.useCallback(() => {
+    const trigger = triggerRef.current;
+    if (!trigger || !popup) return;
+
+    if (!window.matchMedia(MOBILE_QUERY).matches) {
+      setCentered(false);
+      return;
+    }
+
+    const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+    const spaceBelow =
+      viewportHeight -
+      trigger.getBoundingClientRect().bottom -
+      SIDE_OFFSET -
+      VIEWPORT_GUTTER;
+
+    setCentered(popup.scrollHeight > spaceBelow);
+  }, [popup]);
+
+  React.useLayoutEffect(() => {
+    if (!open || !popup) return;
+
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(popup);
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", update, { passive: true });
+    window.visualViewport?.addEventListener("resize", update);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", update);
+      window.visualViewport?.removeEventListener("resize", update);
+    };
+  }, [open, popup, update]);
+
+  return { triggerRef, popupRef: setPopup, centered };
+}
+
 const themeOptions = [
   { value: "light", label: "Light" },
   { value: "dark", label: "Dark" },
 ] as const;
 
 export function DisplayPreferences() {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   const [animations, setAnimations] = useAnimationsPreference();
+  const [open, setOpen] = React.useState(false);
+  const { triggerRef, popupRef, centered } = usePopoverPlacement(open);
 
   const themeLabelId = React.useId();
   const animationsLabelId = React.useId();
@@ -93,25 +143,32 @@ export function DisplayPreferences() {
 
   React.useEffect(() => setMounted(true), []);
 
-  const currentTheme = mounted ? (resolvedTheme ?? "light") : undefined;
+  const currentTheme = mounted ? (theme ?? "light") : undefined;
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
+        ref={triggerRef}
         render={
           <Button
-            variant="outline"
-            className={`border-primary-button-border bg-primary-button-fill text-primary-button-text text-body-md ${focusRing}`}
+            className={`border-primary-button-border bg-primary-button-fill ${focusRing}`}
           />
         }
       >
-        <Settings2 aria-hidden="true" />
         Display preferences
       </PopoverTrigger>
 
       <PopoverContent
+        ref={popupRef}
+        side="bottom"
         align="end"
-        className="w-[min(22rem,calc(100vw-2rem))] gap-0 rounded-2xl border border-component-card-border bg-component-card-fill p-6 text-primary-text"
+        sideOffset={SIDE_OFFSET}
+        positionerClassName={
+          centered
+            ? "pointer-events-none fixed! inset-0! flex! items-center! justify-center! transform-none! translate-none! p-4"
+            : undefined
+        }
+        className="pointer-events-auto max-h-[calc(100dvh-2rem)] w-[min(22rem,calc(100vw-2rem))] gap-0 overflow-y-auto rounded-2xl border border-component-card-border bg-component-card-fill p-6 text-primary-text"
       >
         <PopoverHeader className="mb-6">
           <PopoverTitle className="text-heading-md text-primary-text">
@@ -139,7 +196,7 @@ export function DisplayPreferences() {
               <ToggleGroupItem
                 key={option.value}
                 value={option.value}
-                className={`h-10 rounded-lg text-body-lg text-contact-button-text hover:bg-contact-button-fill-active hover:text-contact-button-text-active aria-pressed:bg-secondary-button-fill aria-pressed:text-secondary-button-text ${focusRing}`}
+                className={`h-10 rounded-lg text-body-lg text-contact-button-text hover:not-aria-pressed:bg-component-card-border-active hover:not-aria-pressed:text-secondary-button-text dark:hover:not-aria-pressed:text-panel-background aria-pressed:bg-secondary-button-fill aria-pressed:text-secondary-button-text ${focusRing}`}
               >
                 {currentTheme === option.value && (
                   <Check aria-hidden="true" className="size-5" />
