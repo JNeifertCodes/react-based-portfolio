@@ -3,7 +3,7 @@
     "deploymentEnabled": {
       "main": true,
       "feature/**": false,
-      "clean-house-test": true
+      "clean-house-test": false
     }
   }
 }
