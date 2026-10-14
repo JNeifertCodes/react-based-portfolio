@@ -16,8 +16,8 @@
   {
     "id": "github",
     "label": "GitHub",
-    "value": "https://github.com/JNeifertCode",
-    "href": "https://github.com/JNeifertCode",
+    "value": "https://github.com/JNeifertCodes",
+    "href": "https://github.com/JNeifertCodes",
     "actions": ["copy", "open"]
   },
   {
