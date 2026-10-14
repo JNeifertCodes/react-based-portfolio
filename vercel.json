@@ -2,7 +2,8 @@
   "git": {
     "deploymentEnabled": {
       "main": true,
-      "feature/**": true
+      "feature/**": true,
+      "reassuring-best-practices-and-clean-code": true
     }
   }
 }
