@@ -11,7 +11,7 @@ export function Hero() {
         Jenna Neifert
       </h1>
 
-      <h3 className="text-heading-md leading-tight">Software Engineer</h3>
+      <h2 className="text-heading-md leading-tight">Software Engineer</h2>
 
       <p className="max-w-3xl text-body-lg leading-relaxed">
         I build accessible, human-centered interfaces for education and finance,
