@@ -59,3 +59,12 @@ Accessibility is a stated priority. Follow the existing patterns:
 ## Known quirks
 
 - `site-header.tsx` has two nested wrapper `div`s with the same `max-w-5xl px-6 py-8` classes. The outer one is the one that animates `py` when the header is compact. The inner one likely duplicates padding by mistake.
+
+## Commands
+
+- do only as your told
+- look only at the files I specify
+- do not try to improve or suggest
+- keep it short, no explanation, just the code
+- skip the preamble, outut only the implementation
+- don't recap waht we discussed, just proceed

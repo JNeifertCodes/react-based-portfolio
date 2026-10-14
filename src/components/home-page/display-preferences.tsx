@@ -19,7 +19,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 const MOTION_STORAGE_KEY = "motion-preference";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
-const MOBILE_QUERY = "(max-width: 639.98px)";
+const MOBILE_QUERY = "(max-width: 760px)";
 const VIEWPORT_GUTTER = 16;
 const SIDE_OFFSET = 8;
 
@@ -219,7 +219,7 @@ export function DisplayPreferences() {
                 onCheckedChange={setAnimations}
                 aria-labelledby={animationsLabelId}
                 aria-describedby={animationsDescriptionId}
-                className={`h-7 w-12 border data-unchecked:bg-muted data-checked:bg-secondary [&_[data-slot=switch-thumb]]:size-5 [&_[data-slot=switch-thumb]]:border [&_[data-slot=switch-thumb]]:border- [&_[data-slot=switch-thumb]]:bg-card`}
+                className={`h-7 w-12 border data-unchecked:bg-muted data-checked:bg-secondary **:data-[slot=switch-thumb]:size-5 **:data-[slot=switch-thumb]:border [&_[data-slot=switch-thumb]]:border- **:data-[slot=switch-thumb]:bg-card`}
               />
             </div>
           </div>
