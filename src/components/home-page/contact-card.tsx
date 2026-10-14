@@ -20,7 +20,8 @@ type ContactCardProps = {
 const actionButton = {
   variant: "outline",
   size: "icon-lg",
-  className: "bg-muted",
+  className:
+    "relative bg-muted hover:outline-2 hover:outline-offset-2 hover:outline-ring after:absolute after:bottom-1.5 after:left-1/2 after:h-0.5 after:w-4 after:-translate-x-1/2 after:bg-current after:opacity-0 hover:after:opacity-100",
 } as const;
 
 function ContactCard({
@@ -103,7 +104,11 @@ function ContactCard({
                       {...actionButton}
                       nativeButton={false}
                       render={
-                        <a href={href} target="_blank" rel="noopener noreferrer" />
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        />
                       }
                       aria-label={`Open ${label} in a new tab`}
                     >

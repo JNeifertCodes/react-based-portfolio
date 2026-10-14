@@ -146,7 +146,9 @@ export function DisplayPreferences() {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
         ref={triggerRef}
-        render={<Button className={`border-input hover:underline`} />}
+        render={
+          <Button className={`border-input hover:underline cursor-pointer`} />
+        }
       >
         Display preferences
       </PopoverTrigger>
