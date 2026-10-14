@@ -189,7 +189,7 @@ export function DisplayPreferences() {
               <ToggleGroupItem
                 key={option.value}
                 value={option.value}
-                className={`h-10 rounded-lg text-body-lg text-muted-foreground  hover:not-aria-pressed:text-secondary-foreground dark:hover:not-aria-pressed:text-background aria-pressed:bg-secondary aria-pressed:text-secondary-foreground hover:underline`}
+                className={`h-10 rounded-lg text-body-lg text-muted-foreground  aria-pressed:bg-secondary aria-pressed:text-secondary-foreground hover:underline`}
               >
                 {currentTheme === option.value && (
                   <Check aria-hidden="true" className="size-5" />
