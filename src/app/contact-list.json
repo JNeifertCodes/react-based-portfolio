@@ -24,7 +24,7 @@
     "id": "resume",
     "label": "Resume",
     "value": "Jenna_Neifert_Resume",
-    "href": "/resume.pdf",
+    "href": "/Jenna_Neifert_Resume.pdf",
     "actions": ["download", "open"]
   },
   {

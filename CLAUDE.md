@@ -2,7 +2,7 @@
 
 # CLAUDE.md
 
-Personal portfolio site for Jenna Neifert. It's a single page built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, and shadcn/ui on **Base UI** primitives. It's hosted on Vercel.
+Personal portfolio site for Jenna Neifert. It's a single page built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, and shadcn/ui on **Base UI** primitives. It's hosted on Vercel and domain with Porkbun.
 
 ## Next.js version
 
@@ -68,3 +68,7 @@ Accessibility is a stated priority. Follow the existing patterns:
 - keep it short, no explanation, just the code
 - skip the preamble, outut only the implementation
 - don't recap waht we discussed, just proceed
+
+## Domain hosting
+
+- site is live and avaialable at www.jsneifertcodes.com

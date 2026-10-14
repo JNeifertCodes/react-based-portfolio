@@ -25,7 +25,14 @@ export function Hero() {
         <Button
           size="lg"
           nativeButton={false}
-          render={<a href="" download />}
+          render={
+            <a
+              href="/Jenna_Neifert_Resume.pdf"
+              download="Jenna_Neifert_Resume.pdf"
+              type="application/pdf"
+              aria-label="Download Jenna Neifert's resume (PDF)"
+            />
+          }
           className="border-input hover:underline"
         >
           Download resume (PDF)
