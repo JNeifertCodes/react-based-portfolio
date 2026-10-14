@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 export function Hero() {
   return (
     <section
+      id="hero"
       aria-labelledby="hero-title"
       className="mx-auto flex max-w-5xl flex-col gap-4 px-6 pt-10 pb-16 text-foreground md:px-11"
     >
@@ -24,7 +25,7 @@ export function Hero() {
         <Button
           size="lg"
           nativeButton={false}
-          render={<a href="/resume.pdf" download />}
+          render={<a href="" download />}
           className="border-input hover:underline"
         >
           Download resume (PDF)

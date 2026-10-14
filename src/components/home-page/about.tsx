@@ -1,6 +1,7 @@
 export function About() {
   return (
     <section
+      id="about"
       aria-labelledby="about-title"
       className="mx-auto flex max-w-5xl flex-col gap-4 px-6 pt-10 pb-16 text-foreground md:px-11"
     >

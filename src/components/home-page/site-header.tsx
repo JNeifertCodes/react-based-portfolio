@@ -21,7 +21,7 @@ export function SiteHeader() {
     <StickyHeader>
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-6 py-8 transition-[padding] duration-200 ease-out motion-reduce:transition-none group-data-[compact=true]:py-3 md:px-11">
         <Link
-          href="/"
+          href="#hero"
           className={cn(
             "rounded-sm bg-transparent p-1 text-body-md font-normal text-foreground",
             "underline-offset-4 hover:bg-transparent hover:text-foreground hover:underline",

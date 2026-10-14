@@ -23,7 +23,7 @@
   {
     "id": "resume",
     "label": "Resume",
-    "value": "Jenna_Neifert_Resume (tagged accessible PDF)",
+    "value": "Jenna_Neifert_Resume",
     "href": "/resume.pdf",
     "actions": ["download", "open"]
   },
