@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { expect } from "storybook/test";
 import { Mail } from "lucide-react";
-import { Button } from "../components/ui/button";
+import { Button, buttonVariants } from "../components/ui/button";
 
 const meta = {
   component: Button,
@@ -38,17 +38,19 @@ export const IconOnly: Story = {
   },
 };
 
+// Links get the button styles through buttonVariants on a plain <a>, so they
+// keep the link role. Base UI's Button would add role="button".
 export const AsLink: Story = {
-  args: {
-    nativeButton: false,
-    render: <a href="#contact" />,
-    children: "Contact me",
-  },
+  render: () => (
+    <a href="#contact" className={buttonVariants({ variant: "secondary" })}>
+      Contact me
+    </a>
+  ),
   play: async ({ canvas }) => {
-    // Base UI keeps role="button" on non-native buttons.
     await expect(
-      canvas.getByRole("button", { name: /contact me/i }),
+      canvas.getByRole("link", { name: /contact me/i }),
     ).toHaveAttribute("href", "#contact");
+    await expect(canvas.queryByRole("button")).not.toBeInTheDocument();
   },
 };
 

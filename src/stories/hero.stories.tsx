@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { expect } from "storybook/test";
+import { expect, spyOn } from "storybook/test";
 import { Hero } from "@/components/home-page/hero";
 
 const meta = {
@@ -10,14 +10,64 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// Catches the temporary link the buttons click, without downloading a file or
+// opening a mail client.
+function captureFollowedUrl() {
+  const followed: HTMLAnchorElement[] = [];
+  const spy = spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(
+    function (this: HTMLAnchorElement) {
+      followed.push(this);
+    },
+  );
+  return { followed, restore: () => spy.mockRestore() };
+}
+
 export const Default: Story = {
   play: async ({ canvas }) => {
-    await expect(
-      canvas.getByRole("button", { name: /download resume/i }),
-    ).toHaveAttribute("href", "/Jenna_Neifert_Resume.pdf");
+    for (const name of [/download resume \(pdf\)/i, /contact me/i]) {
+      const button = canvas.getByRole("button", { name });
+      await expect(button.tagName).toBe("BUTTON");
+      await expect(button).toHaveAttribute("type", "button");
+      await expect(button).not.toHaveAttribute("href");
+    }
     await expect(
       canvas.getByRole("button", { name: /contact me/i }),
-    ).toHaveAttribute("href", "#contact");
+    ).toHaveAccessibleDescription(
+      "Opens your email app to write to jennamwneifert@gmail.com",
+    );
+  },
+};
+
+export const DownloadResume: Story = {
+  play: async ({ canvas, userEvent }) => {
+    const { followed, restore } = captureFollowedUrl();
+    try {
+      await userEvent.click(
+        canvas.getByRole("button", { name: /download resume/i }),
+      );
+      await expect(followed).toHaveLength(1);
+      await expect(followed[0].pathname).toBe("/Jenna_Neifert_Resume.pdf");
+      await expect(followed[0].download).toBe("Jenna_Neifert_Resume.pdf");
+    } finally {
+      restore();
+    }
+  },
+};
+
+export const ContactMeWithKeyboard: Story = {
+  play: async ({ canvas, userEvent }) => {
+    const { followed, restore } = captureFollowedUrl();
+    try {
+      canvas.getByRole("button", { name: /contact me/i }).focus();
+      await userEvent.keyboard("{Enter}");
+      await userEvent.keyboard(" ");
+      await expect(followed.map((link) => link.href)).toEqual([
+        "mailto:jennamwneifert@gmail.com",
+        "mailto:jennamwneifert@gmail.com",
+      ]);
+    } finally {
+      restore();
+    }
   },
 };
 
