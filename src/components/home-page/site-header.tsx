@@ -19,7 +19,7 @@ const navLinks = [
 export function SiteHeader() {
   return (
     <StickyHeader>
-      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-6 py-8 transition-[padding] duration-200 ease-out motion-reduce:transition-none group-data-[compact=true]:py-3 md:px-11">
+      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-6 py-8 motion-allowed:transition-[padding] motion-allowed:duration-200 motion-allowed:ease-out group-data-[compact=true]:py-3 md:px-11">
         <Link
           href="#hero"
           className={cn(

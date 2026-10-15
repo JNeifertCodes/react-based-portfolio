@@ -29,7 +29,7 @@ export function About() {
       </p>
       <p className="max-w-3xl text-body-lg leading-relaxed">
         <b>Availability:</b> Open to roles: remote anywhere USA / hybrid /
-        on-site in Mechanicsburg/Harrisburg PA area. Work in EST time zone.
+        on-site in Mechanicsburg/Harrisburg PA area. Work in ET time zone.
       </p>
     </section>
   );

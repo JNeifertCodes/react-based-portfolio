@@ -1,5 +1,23 @@
 [
   {
+    "id": "fleetfeet",
+    "company": "Fleet Feet",
+    "companyUrl": "https://www.fleetfeet.com/",
+    "title": "Part-time Outfitter",
+    "startDate": "2026-05",
+    "endDate": "Present",
+    "location": "Mechanicsburg, PA",
+    "workArrangement": "In-office",
+    "context": "Specialty running retailer where outfitters work one-on-one with customers to find footwear that fits their feet and goals.",
+    "highlights": [
+      "Greet customers and guide them through fittings, listening to how they run and what they need before recommending footwear.",
+      "Handle register and guest transactions accurately.",
+      "Organize, review, and add incoming merchandise to inventory so the floor stays stocked and easy to shop.",
+      "Help fulfill online orders so in-store and online customers get the same level of care."
+    ],
+    "tags": []
+  },
+  {
     "id": "eduplanet21",
     "company": "Eduplanet21",
     "companyUrl": "https://eduplanet21.com/",
@@ -24,7 +42,7 @@
     "title": "Software Engineer",
     "startDate": "2022-01",
     "endDate": "2024-07",
-    "location": "Portland, OR",
+    "location": "Mechanicsburg, PA",
     "workArrangement": "Remote",
     "context": "Online learning platform for colleges and universities, where students and faculty complete homework, quizzes, tests, and assessments and study. 6-person front-end engineering team.",
     "highlights": [

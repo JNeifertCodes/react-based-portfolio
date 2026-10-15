@@ -8,14 +8,13 @@ Single-page portfolio for Jenna Neifert, live at [www.jneifertcodes.com](https:/
 
 ## Commands
 
-| Command                        | Purpose                                                        |
-| ------------------------------ | -------------------------------------------------------------- |
-| `npm run dev`                  | Start the dev server at localhost:3000                         |
-| `npm run build`                | Production build                                               |
-| `npm run lint`                 | ESLint                                                         |
-| `npm run storybook`            | Storybook at localhost:6006                                    |
-| `npx vitest`                   | Run story interaction tests (headless Chromium via Playwright) |
-| `npx shadcn@latest add <name>` | Add a shadcn component                                         |
+| Command                        | Purpose                                |
+| ------------------------------ | -------------------------------------- |
+| `npm run dev`                  | Start the dev server at localhost:3000 |
+| `npm run build`                | Production build                       |
+| `npm run lint`                 | ESLint                                 |
+| `npm run storybook`            | Storybook at localhost:6006            |
+| `npx shadcn@latest add <name>` | Add a shadcn component                 |
 
 ## Architecture
 
@@ -45,23 +44,23 @@ public/                    Static assets, including Jenna_Neifert_Resume.pdf
 
 ### Components (`src/components/home-page/`)
 
-| File                                     | Type              | Responsibility                                                                                                                                                                                   |
-| ---------------------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `site-header.tsx`                        | Server            | Owns `navLinks`. Desktop `NavigationMenu` and `DisplayPreferences` at `md`+; `MobileNav` below `md`.                                                                                             |
-| `sticky-header.tsx`                      | Client            | Sets `data-compact` on `<header>` when scrolling down. Uses rAF throttling, a minimum scroll delta and a lock window to prevent resize flicker. Children style via `group-data-[compact=true]:`. |
-| `mobile-nav.tsx`                         | Client            | Right-side `Sheet` with nav links and `DisplayPreferences`.                                                                                                                                      |
-| `display-preferences.tsx`                | Client            | Popover with a light/dark theme `ToggleGroup` and an animations `Switch`.                                                                                                                        |
-| `hero.tsx`                               | Client            | Intro with "Download resume (PDF)" and "Contact me" (`mailto:`) buttons, both using `followUrl`.                                                                                                 |
-| `about.tsx`                              | Server            | Static bio.                                                                                                                                                                                      |
-| `experience.tsx` / `experience-card.tsx` | Server            | Maps `work-experience.json` to cards.                                                                                                                                                            |
-| `contact.tsx` / `contact-card.tsx`       | Server / Client   | Maps `contact-list.json` to cards; each card maps its `actions` to `ActionIconButton` and owns the copied state and `aria-live` region.                                                          |
-| `action-icon-button.tsx`                 | Client (via card) | Icon-only contact action. Email and open are `<a>` links; copy and download are `<Button type="button">`. Renders nothing for a link action without `href`.                                      |
-| `site-footer.tsx`                        | Server            | Footer.                                                                                                                                                                                          |
+| File                                     | Type              | Responsibility                                                                                                                                                                                                                                                                 |
+| ---------------------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `site-header.tsx`                        | Server            | Owns `navLinks`. Desktop `NavigationMenu` and `DisplayPreferences` at `md`+; `MobileNav` below `md`.                                                                                                                                                                           |
+| `sticky-header.tsx`                      | Client            | Sets `data-compact` on `<header>` when scrolling down. Uses rAF throttling, a minimum scroll delta and a lock window to prevent resize flicker (300ms, or 100ms with motion off). Transitions are gated on `motion-allowed:`. Children style via `group-data-[compact=true]:`. |
+| `mobile-nav.tsx`                         | Client            | Right-side `Sheet` with nav links and `DisplayPreferences`.                                                                                                                                                                                                                    |
+| `display-preferences.tsx`                | Client            | Popover with a light/dark theme `ToggleGroup` and an animations `Switch`.                                                                                                                                                                                                      |
+| `hero.tsx`                               | Client            | Intro with "Download resume (PDF)" and "Contact me" (`mailto:`) buttons, both using `followUrl`.                                                                                                                                                                               |
+| `about.tsx`                              | Server            | Static bio.                                                                                                                                                                                                                                                                    |
+| `experience.tsx` / `experience-card.tsx` | Server            | Maps `work-experience.json` to cards.                                                                                                                                                                                                                                          |
+| `contact.tsx` / `contact-card.tsx`       | Server / Client   | Maps `contact-list.json` to cards; each card maps its `actions` to `ActionIconButton` and owns the copied state and `aria-live` region.                                                                                                                                        |
+| `action-icon-button.tsx`                 | Client (via card) | Icon-only contact action. Email and open are `<a>` links; copy and download are `<Button type="button">`. Renders nothing for a link action without `href`.                                                                                                                    |
+| `site-footer.tsx`                        | Server            | Footer.                                                                                                                                                                                                                                                                        |
 
 ### Display preferences
 
 - **Theme:** `@wrksz/themes` (provider from `/next`, `useTheme` from `/client`). Uses `attribute="class"`, defaults to `light`, and ignores the system setting. A `mounted` guard prevents hydration mismatch.
-- **Motion:** Defaults to the inverse of `prefers-reduced-motion`. A user override is stored in `localStorage["motion-preference"]` and applied as `<html data-motion="on|off">` plus inline `scroll-behavior`.
+- **Motion:** Defaults to the inverse of `prefers-reduced-motion`. A user override is stored in `localStorage["motion-preference"]` and applied as `<html data-motion="on|off">` plus inline `scroll-behavior` (`smooth` or `auto`). The inline style overrides the `prefers-reduced-motion` smooth-scroll rule in `globals.css`, which only applies before hydration.
 - **Mobile placement:** Below 760px, `usePopoverPlacement` centers the popup when there is no room below the trigger. This relies on the custom `positionerClassName` prop.
 
 ### Styling
@@ -74,7 +73,7 @@ Check `node_modules/next/dist/docs/` before using any Next API. Already in use:
 
 - `reactCompiler: true` in `next.config.ts`; manual `useMemo` / `useCallback` is usually unnecessary.
 - The root layout uses the global `LayoutProps<"/">` type (not imported).
-- `data-scroll-behavior="smooth"` on `<html>` opts into smooth scrolling.
+- `data-scroll-behavior="smooth"` on `<html>` tells Next to force instant scrolling during route transitions, then restore the inline `scroll-behavior`. It does nothing for hash-only navigation, so it never overrides the Animations switch.
 
 ## shadcn / Base UI conventions
 

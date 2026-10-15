@@ -22,8 +22,6 @@ npm run storybook # Run storybook
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Deployed on Vercel
-
 ## Check it out
 
 Come and visit [My Site](https://www.jneifertcodes.com/)
