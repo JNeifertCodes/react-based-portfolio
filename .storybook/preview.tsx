@@ -1,5 +1,6 @@
 import type { Preview } from "@storybook/nextjs-vite";
 import { ThemeProvider } from "@wrksz/themes/next";
+import { MotionProvider } from "../src/components/home-page/motion-provider";
 import "../src/app/globals.css";
 
 const preview: Preview = {
@@ -10,9 +11,11 @@ const preview: Preview = {
         defaultTheme="light"
         enableSystem={false}
       >
-        <div className="bg-background text-foreground">
-          <Story />
-        </div>
+        <MotionProvider>
+          <div className="bg-background text-foreground">
+            <Story />
+          </div>
+        </MotionProvider>
       </ThemeProvider>
     ),
   ],
