@@ -40,78 +40,81 @@ function ExperienceCard({
   const title = `${role} · ${company}`;
 
   return (
-    <Card
-      role="article"
-      aria-labelledby={headingId}
-      className={cn("ring-border [--card-spacing:--spacing(6)]", className)}
-    >
-      <CardContent className="grid gap-4 sm:grid-cols-[12rem_1fr] sm:gap-8 text-primary-foreground">
-        <p className="text-body-sm sm:pt-1.5">
-          <time dateTime={startDate.dateTime}>{startDate.label}</time>
-          <span aria-hidden="true"> – </span>
-          <span className="sr-only"> to </span>
-          {endDate ? (
-            <time dateTime={endDate.dateTime}>{endDate.label}</time>
-          ) : (
-            "Present"
-          )}
-        </p>
+    <article aria-labelledby={headingId}>
+      <Card
+        className={cn("ring-border [--card-spacing:--spacing(6)]", className)}
+      >
+        <CardContent className="grid gap-4 sm:grid-cols-[12rem_1fr] sm:gap-8">
+          <p className="text-body-sm sm:pt-1.5">
+            <time dateTime={startDate.dateTime}>{startDate.label}</time>
+            <span aria-hidden="true"> – </span>
+            <span className="sr-only"> to </span>
+            {endDate ? (
+              <time dateTime={endDate.dateTime}>{endDate.label}</time>
+            ) : (
+              "Present"
+            )}
+          </p>
 
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <Heading id={headingId} className="text-heading-md">
-              {companyHref ? (
-                <a
-                  href={companyHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-sm group/underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-                >
-                  <span>
-                    <span className="link-underline">{title}</span>
-                  </span>
-                  <ExternalLink
-                    aria-hidden="true"
-                    className="size-5 shrink-0"
-                  />
-                  <span className="sr-only">(opens in a new tab)</span>
-                </a>
-              ) : (
-                title
-              )}
-            </Heading>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <Heading id={headingId} className="text-heading-md">
+                {companyHref ? (
+                  <a
+                    href={companyHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-sm group/underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                  >
+                    <span>
+                      <span className="link-underline">{title}</span>
+                    </span>
+                    <ExternalLink
+                      aria-hidden="true"
+                      className="size-5 shrink-0"
+                    />
+                    <span className="sr-only">(opens in a new tab)</span>
+                  </a>
+                ) : (
+                  title
+                )}
+              </Heading>
 
-            {location && <CardDescription>{location}</CardDescription>}
+              {location && <CardDescription>{location}</CardDescription>}
+            </div>
+
+            <p className="text-body-lg">{description}</p>
+
+            {highlights.length > 0 && (
+              <ul
+                aria-label="Highlights"
+                className="flex list-disc flex-col gap-2 pl-5 text-body-md"
+              >
+                {highlights.map((highlight) => (
+                  <li key={highlight}>{highlight}</li>
+                ))}
+              </ul>
+            )}
+
+            {technologies.length > 0 && (
+              <ul
+                aria-label="Technologies used"
+                className="flex flex-wrap gap-2"
+              >
+                {technologies.map((tech) => (
+                  <li
+                    key={tech}
+                    className="rounded-full border border-current bg-accent px-3 py-1 text-body-sm text-accent-foreground"
+                  >
+                    {tech}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
-
-          <p className="text-body-lg">{description}</p>
-
-          {highlights.length > 0 && (
-            <ul
-              aria-label="Highlights"
-              className="flex list-disc flex-col gap-2 pl-5 text-body-md"
-            >
-              {highlights.map((highlight) => (
-                <li key={highlight}>{highlight}</li>
-              ))}
-            </ul>
-          )}
-
-          {technologies.length > 0 && (
-            <ul aria-label="Technologies used" className="flex flex-wrap gap-2">
-              {technologies.map((tech) => (
-                <li
-                  key={tech}
-                  className="rounded-full border border-current bg-accent px-3 py-1 text-body-sm text-accent-foreground"
-                >
-                  {tech}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </article>
   );
 }
 

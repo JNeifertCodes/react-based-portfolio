@@ -152,7 +152,7 @@ export function DisplayPreferences() {
               <ToggleGroupItem
                 key={option.value}
                 value={option.value}
-                className={`h-10 rounded-lg text-body-lg text-muted-foreground  aria-pressed:bg-secondary aria-pressed:text-secondary-foreground group/underline`}
+                className="group/underline h-10 rounded-lg text-body-lg text-muted-foreground aria-pressed:bg-secondary aria-pressed:text-secondary-foreground"
               >
                 {currentTheme === option.value && (
                   <Check aria-hidden="true" className="size-5" />
@@ -182,7 +182,7 @@ export function DisplayPreferences() {
                 onCheckedChange={setAnimations}
                 aria-labelledby={animationsLabelId}
                 aria-describedby={animationsDescriptionId}
-                className={`h-7 w-12 border data-unchecked:bg-muted data-checked:bg-secondary **:data-[slot=switch-thumb]:size-5 **:data-[slot=switch-thumb]:border **:data-[slot=switch-thumb]:bg-card`}
+                className="h-7 w-12 border data-unchecked:bg-muted data-checked:bg-secondary **:data-[slot=switch-thumb]:size-5 **:data-[slot=switch-thumb]:border **:data-[slot=switch-thumb]:bg-card"
               />
             </div>
           </div>
