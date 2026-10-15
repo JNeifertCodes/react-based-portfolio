@@ -45,3 +45,38 @@ export const ToggleAnimations: Story = {
     );
   },
 };
+
+// The header and the mobile menu each render a copy. The preference lives in
+// MotionProvider, so changing it in one copy updates the other.
+export const TwoCopiesShareMotion: Story = {
+  render: () => (
+    <div className="flex gap-4">
+      <DisplayPreferences />
+      <DisplayPreferences />
+    </div>
+  ),
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    const body = within(canvasElement.ownerDocument.body);
+    const [first, second] = canvas.getAllByRole('button', { name: 'Display preferences' });
+
+    await userEvent.click(first);
+    const toggle = await body.findByRole('switch', { name: 'Animations' });
+    const wasChecked = toggle.getAttribute('aria-checked') === 'true';
+    await userEvent.click(toggle);
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('switch')).not.toBeInTheDocument());
+
+    await userEvent.click(second);
+    await expect(await body.findByRole('switch', { name: 'Animations' })).toHaveAttribute(
+      'aria-checked',
+      String(!wasChecked),
+    );
+    await expect(canvasElement.ownerDocument.documentElement.dataset.motion).toBe(
+      wasChecked ? 'off' : 'on',
+    );
+
+    // Restore the original preference.
+    await userEvent.click(body.getByRole('switch', { name: 'Animations' }));
+    await userEvent.keyboard('{Escape}');
+  },
+};

@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  useEffect,
   useId,
   useLayoutEffect,
   useRef,
@@ -11,6 +10,7 @@ import {
 import { useTheme } from "@wrksz/themes/client";
 import { Check } from "lucide-react";
 
+import { useMotionPreference } from "@/components/home-page/motion-provider";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -24,74 +24,9 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
-const MOTION_STORAGE_KEY = "motion-preference";
-const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 const MOBILE_QUERY = "(max-width: 760px)";
 const VIEWPORT_GUTTER = 16;
 const SIDE_OFFSET = 8;
-
-function readStoredMotion(): boolean | null {
-  try {
-    const value = window.localStorage.getItem(MOTION_STORAGE_KEY);
-    return value === null ? null : value === "on";
-  } catch {
-    return null;
-  }
-}
-
-function applyMotion(enabled: boolean) {
-  const root = document.documentElement;
-  root.dataset.motion = enabled ? "on" : "off";
-  root.style.scrollBehavior = enabled ? "smooth" : "auto";
-}
-
-// Fallback for when storage is unavailable: the override lasts this session only.
-let sessionMotion: boolean | null = null;
-const motionListeners = new Set<() => void>();
-
-function subscribeMotion(callback: () => void) {
-  const media = window.matchMedia(REDUCED_MOTION_QUERY);
-  motionListeners.add(callback);
-  media.addEventListener("change", callback);
-  return () => {
-    motionListeners.delete(callback);
-    media.removeEventListener("change", callback);
-  };
-}
-
-function getMotionSnapshot() {
-  return (
-    sessionMotion ??
-    readStoredMotion() ??
-    !window.matchMedia(REDUCED_MOTION_QUERY).matches
-  );
-}
-
-function getServerMotionSnapshot() {
-  return false;
-}
-
-function useAnimationsPreference() {
-  const enabled = useSyncExternalStore(
-    subscribeMotion,
-    getMotionSnapshot,
-    getServerMotionSnapshot,
-  );
-
-  useEffect(() => applyMotion(enabled), [enabled]);
-
-  const update = (next: boolean) => {
-    sessionMotion = next;
-    try {
-      window.localStorage.setItem(MOTION_STORAGE_KEY, next ? "on" : "off");
-    } catch {
-      /* storage unavailable: preference applies for this session only */
-    }
-    motionListeners.forEach((listener) => listener());
-  };
-
-  return [enabled, update] as const;
-}
 
 const subscribeNoop = () => () => {};
 
@@ -158,7 +93,7 @@ const themeOptions = [
 export function DisplayPreferences() {
   const { theme, setTheme } = useTheme();
   const mounted = useMounted();
-  const [animations, setAnimations] = useAnimationsPreference();
+  const [animations, setAnimations] = useMotionPreference();
   const [open, setOpen] = useState(false);
   const { triggerRef, popupRef, centered } = usePopoverPlacement(open);
 
@@ -173,10 +108,10 @@ export function DisplayPreferences() {
       <PopoverTrigger
         ref={triggerRef}
         render={
-          <Button className={`border-input hover:underline cursor-pointer`} />
+          <Button className="group/underline border-input cursor-pointer" />
         }
       >
-        Display preferences
+        <span className="link-underline">Display preferences</span>
       </PopoverTrigger>
 
       <PopoverContent
@@ -217,12 +152,12 @@ export function DisplayPreferences() {
               <ToggleGroupItem
                 key={option.value}
                 value={option.value}
-                className={`h-10 rounded-lg text-body-lg text-muted-foreground  aria-pressed:bg-secondary aria-pressed:text-secondary-foreground hover:underline`}
+                className="group/underline h-10 rounded-lg text-body-lg text-muted-foreground aria-pressed:bg-secondary aria-pressed:text-secondary-foreground"
               >
                 {currentTheme === option.value && (
                   <Check aria-hidden="true" className="size-5" />
                 )}
-                {option.label}
+                <span className="link-underline">{option.label}</span>
               </ToggleGroupItem>
             ))}
           </ToggleGroup>
@@ -247,7 +182,7 @@ export function DisplayPreferences() {
                 onCheckedChange={setAnimations}
                 aria-labelledby={animationsLabelId}
                 aria-describedby={animationsDescriptionId}
-                className={`h-7 w-12 border data-unchecked:bg-muted data-checked:bg-secondary **:data-[slot=switch-thumb]:size-5 **:data-[slot=switch-thumb]:border **:data-[slot=switch-thumb]:bg-card`}
+                className="h-7 w-12 border data-unchecked:bg-muted data-checked:bg-secondary **:data-[slot=switch-thumb]:size-5 **:data-[slot=switch-thumb]:border **:data-[slot=switch-thumb]:bg-card"
               />
             </div>
           </div>

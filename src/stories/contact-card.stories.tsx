@@ -18,7 +18,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Email: Story = {
   play: async ({ canvas }) => {
-    await expect(canvas.getByRole('button', { name: 'Send email to hello@example.com' })).toHaveAttribute(
+    await expect(canvas.getByRole('link', { name: 'Send email to hello@example.com' })).toHaveAttribute(
       'href',
       'mailto:hello@example.com',
     );
@@ -38,6 +38,13 @@ export const Resume: Story = {
     value: 'Jenna_Neifert_Resume.pdf',
     href: '/Jenna_Neifert_Resume.pdf',
     actions: ['open', 'download'],
+  },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('link', { name: 'Open Resume in a new tab' })).toHaveAttribute(
+      'target',
+      '_blank',
+    );
+    await expect(canvas.getByRole('button', { name: 'Download Resume' }).tagName).toBe('BUTTON');
   },
 };
 

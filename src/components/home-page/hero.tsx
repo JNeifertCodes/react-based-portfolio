@@ -1,6 +1,17 @@
+"use client";
+
+import { useId } from "react";
+
 import { Button } from "@/components/ui/button";
+import { followUrl } from "@/lib/follow-url";
+
+const RESUME_HREF = "/Jenna_Neifert_Resume.pdf";
+const RESUME_FILENAME = "Jenna_Neifert_Resume.pdf";
+const EMAIL = "jennamwneifert@gmail.com";
 
 export function Hero() {
+  const contactDescriptionId = useId();
+
   return (
     <section
       id="hero"
@@ -24,29 +35,27 @@ export function Hero() {
 
       <div className="mt-1 flex flex-wrap items-center justify-between gap-4">
         <Button
+          type="button"
           size="lg"
-          nativeButton={false}
-          render={
-            <a
-              href="/Jenna_Neifert_Resume.pdf"
-              download="Jenna_Neifert_Resume.pdf"
-              type="application/pdf"
-            />
-          }
-          className="border-input hover:underline"
+          onClick={() => followUrl(RESUME_HREF, RESUME_FILENAME)}
+          className="group/underline border-input"
         >
-          Download resume (PDF)
+          <span className="link-underline">Download resume (PDF)</span>
         </Button>
 
         <Button
+          type="button"
           variant="secondary"
           size="lg"
-          nativeButton={false}
-          render={<a href="#contact" />}
-          className={`border-input hover:underline`}
+          onClick={() => followUrl(`mailto:${EMAIL}`)}
+          aria-describedby={contactDescriptionId}
+          className="group/underline border-input"
         >
-          Contact me
+          <span className="link-underline">Contact me</span>
         </Button>
+        <span id={contactDescriptionId} className="sr-only">
+          Opens your email app to write to {EMAIL}
+        </span>
       </div>
     </section>
   );

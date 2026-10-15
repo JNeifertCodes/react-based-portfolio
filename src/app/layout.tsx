@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@wrksz/themes/next";
+import { MotionProvider } from "@/components/home-page/motion-provider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           defaultTheme="light"
           enableSystem={false}
         >
-          {children}
+          <MotionProvider>{children}</MotionProvider>
         </ThemeProvider>
       </body>
     </html>

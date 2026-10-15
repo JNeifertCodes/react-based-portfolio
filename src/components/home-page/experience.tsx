@@ -14,12 +14,9 @@ export function Experience() {
     <section
       id="experience"
       aria-labelledby="experience-title"
-      className="mx-auto flex max-w-5xl flex-col gap-6 px-6 pb-16 md:px-11"
+      className="mx-auto flex max-w-5xl flex-col gap-6 px-6 pb-16 text-foreground md:px-11"
     >
-      <h2
-        id="experience-title"
-        className="text-heading-md leading-tight text-primary-foreground"
-      >
+      <h2 id="experience-title" className="text-heading-md leading-tight">
         Experience
       </h2>
 

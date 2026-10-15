@@ -32,6 +32,7 @@ src/
     ui/                    shadcn-generated components (Base UI variant)
   stories/                 Storybook stories for home-page components
   lib/utils.ts             Re-exports `cn`
+  lib/follow-url.ts        `followUrl(href, download?)`: clicks a temporary link so a button can download or open mailto:
 public/                    Static assets, including Jenna_Neifert_Resume.pdf
 .storybook/                Storybook config; preview wraps stories in ThemeProvider
 ```
@@ -44,17 +45,18 @@ public/                    Static assets, including Jenna_Neifert_Resume.pdf
 
 ### Components (`src/components/home-page/`)
 
-| File                                     | Type            | Responsibility                                                                                                                                                                                   |
-| ---------------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `site-header.tsx`                        | Server          | Owns `navLinks`. Desktop `NavigationMenu` and `DisplayPreferences` at `md`+; `MobileNav` below `md`.                                                                                             |
-| `sticky-header.tsx`                      | Client          | Sets `data-compact` on `<header>` when scrolling down. Uses rAF throttling, a minimum scroll delta and a lock window to prevent resize flicker. Children style via `group-data-[compact=true]:`. |
-| `mobile-nav.tsx`                         | Client          | Right-side `Sheet` with nav links and `DisplayPreferences`.                                                                                                                                      |
-| `display-preferences.tsx`                | Client          | Popover with a light/dark theme `ToggleGroup` and an animations `Switch`.                                                                                                                        |
-| `hero.tsx`                               | Server          | Intro with resume download and contact links.                                                                                                                                                    |
-| `about.tsx`                              | Server          | Static bio.                                                                                                                                                                                      |
-| `experience.tsx` / `experience-card.tsx` | Server          | Maps `work-experience.json` to cards.                                                                                                                                                            |
-| `contact.tsx` / `contact-card.tsx`       | Server / Client | Maps `contact-list.json` to cards with email, copy, download and open actions.                                                                                                                   |
-| `site-footer.tsx`                        | Server          | Footer.                                                                                                                                                                                          |
+| File                                     | Type              | Responsibility                                                                                                                                                                                   |
+| ---------------------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `site-header.tsx`                        | Server            | Owns `navLinks`. Desktop `NavigationMenu` and `DisplayPreferences` at `md`+; `MobileNav` below `md`.                                                                                             |
+| `sticky-header.tsx`                      | Client            | Sets `data-compact` on `<header>` when scrolling down. Uses rAF throttling, a minimum scroll delta and a lock window to prevent resize flicker. Children style via `group-data-[compact=true]:`. |
+| `mobile-nav.tsx`                         | Client            | Right-side `Sheet` with nav links and `DisplayPreferences`.                                                                                                                                      |
+| `display-preferences.tsx`                | Client            | Popover with a light/dark theme `ToggleGroup` and an animations `Switch`.                                                                                                                        |
+| `hero.tsx`                               | Client            | Intro with "Download resume (PDF)" and "Contact me" (`mailto:`) buttons, both using `followUrl`.                                                                                                 |
+| `about.tsx`                              | Server            | Static bio.                                                                                                                                                                                      |
+| `experience.tsx` / `experience-card.tsx` | Server            | Maps `work-experience.json` to cards.                                                                                                                                                            |
+| `contact.tsx` / `contact-card.tsx`       | Server / Client   | Maps `contact-list.json` to cards; each card maps its `actions` to `ActionIconButton` and owns the copied state and `aria-live` region.                                                          |
+| `action-icon-button.tsx`                 | Client (via card) | Icon-only contact action. Email and open are `<a>` links; copy and download are `<Button type="button">`. Renders nothing for a link action without `href`.                                      |
+| `site-footer.tsx`                        | Server            | Footer.                                                                                                                                                                                          |
 
 ### Display preferences
 
@@ -78,7 +80,7 @@ Check `node_modules/next/dist/docs/` before using any Next API. Already in use:
 
 - `components.json` uses the `base-nova` style, built on `@base-ui/react` (not Radix).
 - Compose with `render={<Element />}`, not `asChild`.
-- Set `nativeButton={false}` when a `Button` renders a non-button element.
+- Use `Button` only for actions (copy, download, open the mail app). A link that should look like a button is a plain `<a>` styled with `buttonVariants({ variant, size })`; don't render `<a>` through `Button` with `nativeButton={false}`, because Base UI adds `role="button"`.
 - State is exposed via attributes: `data-open`, `data-highlighted`, `aria-pressed`, `aria-checked`.
 - `PopoverContent` accepts a custom `positionerClassName` prop passed to the Positioner.
 - `cn` is imported from either `"cn"` or `"@/lib/utils"`; both resolve to the same function.
@@ -91,7 +93,8 @@ Accessibility is a core requirement. Follow existing patterns:
 - Associate controls with labels via `aria-labelledby` / `aria-describedby`, using `useId` for ids.
 - Decorative icons get `aria-hidden`; icon-only buttons get `aria-label`.
 - Announce transient state changes with an `aria-live` region.
-- Use `motion-reduce:transition-none` for transitions. Note that this reads the OS setting only; styles that should obey the in-app toggle must target `[data-motion=off]`, which no CSS does yet.
+- Gate transitions with the `motion-allowed:` variant (defined in `globals.css`). It matches `html[data-motion="on"]`, or the OS `prefers-reduced-motion: no-preference` before `data-motion` is set, so it obeys the in-app toggle. `motion-reduce:` reads the OS setting only.
+- Hover and focus underlines use the `link-underline` utility: a `currentColor` gradient that draws in on `hover` / `focus-visible` and appears instantly with motion off. Put it on the link itself, or on an inline child `<span>` when the trigger has its own `transition-*` or is not inline (buttons, `NavigationMenuLink`, flex links); the trigger then gets `group/underline`. Don't use `hover:underline`.
 - `scroll-padding-top: 7rem` on `html` keeps anchor targets clear of the sticky header.
 
 ## Working preferences
