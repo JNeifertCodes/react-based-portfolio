@@ -44,6 +44,22 @@
   @variant motion-allowed {
     transition: background-size 250ms ease-out;
   }
+
+  /* Forced colors drops gradient backgrounds, so fall back to a text
+     underline. */
+  @media (forced-colors: active) {
+    @media (hover: hover) {
+      &:hover,
+      :where(.group\/underline):hover & {
+        text-decoration-line: underline;
+      }
+    }
+
+    &:focus-visible,
+    :where(.group\/underline):focus-visible & {
+      text-decoration-line: underline;
+    }
+  }
 }
 
 html {
