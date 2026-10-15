@@ -2,7 +2,7 @@
 
 ## Overview
 
-I've been a frontend engineer for the last 5 years and primarily work in Vue.
+I've been a software engineer since 2019 and primarily work in Vue.
 This is my React based portfolio of my work history, current and future projects.
 
 ### Tech Stack
@@ -13,17 +13,16 @@ This is my React based portfolio of my work history, current and future projects
 - Components - [shadcn/ui](https://ui.shadcn.com) on [Base UI](https://base-ui.com) primitives
 - Hosting - [Vercel](https://vercel.com/)
 
-## Getting Started
-
-First, run the development server:
+## Common commands
 
 ```bash
-npm run dev
+npm run dev # Run development server
+npm run storybook # Run storybook
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployed on Vercel
 
 ## Check it out
 

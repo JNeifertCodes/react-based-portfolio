@@ -14,10 +14,10 @@ export function Contact() {
       </h2>
 
       <p className="max-w-3xl text-body-lg leading-relaxed">
-        I'm looking for front-end or full-stack roles where I can keep building
-        accessible interfaces and grow my back-end skills. If you're working on
+        I’m looking for front-end or full-stack roles where I can keep building
+        accessible interfaces and grow my back-end skills. If you’re working on
         something in education, finance, or anywhere trust and usability matter,
-        I'd love to hear about it.
+        I’d love to hear about it.
       </p>
 
       <ul className="flex flex-col gap-6">

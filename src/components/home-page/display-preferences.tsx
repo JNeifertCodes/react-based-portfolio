@@ -1,6 +1,13 @@
 "use client";
 
-import * as React from "react";
+import {
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { useTheme } from "@wrksz/themes/client";
 import { Check } from "lucide-react";
 
@@ -38,73 +45,94 @@ function applyMotion(enabled: boolean) {
   root.style.scrollBehavior = enabled ? "smooth" : "auto";
 }
 
+// Fallback for when storage is unavailable: the override lasts this session only.
+let sessionMotion: boolean | null = null;
+const motionListeners = new Set<() => void>();
+
+function subscribeMotion(callback: () => void) {
+  const media = window.matchMedia(REDUCED_MOTION_QUERY);
+  motionListeners.add(callback);
+  media.addEventListener("change", callback);
+  return () => {
+    motionListeners.delete(callback);
+    media.removeEventListener("change", callback);
+  };
+}
+
+function getMotionSnapshot() {
+  return (
+    sessionMotion ??
+    readStoredMotion() ??
+    !window.matchMedia(REDUCED_MOTION_QUERY).matches
+  );
+}
+
+function getServerMotionSnapshot() {
+  return false;
+}
+
 function useAnimationsPreference() {
-  const [enabled, setEnabled] = React.useState(false);
-  const [overridden, setOverridden] = React.useState(false);
+  const enabled = useSyncExternalStore(
+    subscribeMotion,
+    getMotionSnapshot,
+    getServerMotionSnapshot,
+  );
 
-  React.useEffect(() => {
-    const media = window.matchMedia(REDUCED_MOTION_QUERY);
-    const stored = readStoredMotion();
+  useEffect(() => applyMotion(enabled), [enabled]);
 
-    if (stored !== null) {
-      setOverridden(true);
-      setEnabled(stored);
-      applyMotion(stored);
-      return;
-    }
-
-    const sync = () => {
-      const next = !media.matches;
-      setEnabled(next);
-      applyMotion(next);
-    };
-    sync();
-    media.addEventListener("change", sync);
-    return () => media.removeEventListener("change", sync);
-  }, [overridden]);
-
-  const update = React.useCallback((next: boolean) => {
-    setOverridden(true);
-    setEnabled(next);
-    applyMotion(next);
+  const update = (next: boolean) => {
+    sessionMotion = next;
     try {
       window.localStorage.setItem(MOTION_STORAGE_KEY, next ? "on" : "off");
     } catch {
       /* storage unavailable: preference applies for this session only */
     }
-  }, []);
+    motionListeners.forEach((listener) => listener());
+  };
 
   return [enabled, update] as const;
 }
 
+const subscribeNoop = () => () => {};
+
+function useMounted() {
+  return useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false,
+  );
+}
+
 function usePopoverPlacement(open: boolean) {
-  const triggerRef = React.useRef<HTMLButtonElement>(null);
-  const [popup, setPopup] = React.useState<HTMLDivElement | null>(null);
-  const [centered, setCentered] = React.useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [popup, setPopup] = useState<HTMLDivElement | null>(null);
+  const [centered, setCentered] = useState(false);
 
-  const update = React.useCallback(() => {
-    const trigger = triggerRef.current;
-    if (!trigger || !popup) return;
-
-    if (!window.matchMedia(MOBILE_QUERY).matches) {
-      setCentered(false);
-      return;
-    }
-
-    const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
-    const spaceBelow =
-      viewportHeight -
-      trigger.getBoundingClientRect().bottom -
-      SIDE_OFFSET -
-      VIEWPORT_GUTTER;
-
-    setCentered(popup.scrollHeight > spaceBelow);
-  }, [popup]);
-
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     if (!open || !popup) return;
 
-    update();
+    const update = () => {
+      const trigger = triggerRef.current;
+      if (!trigger) return;
+
+      if (!window.matchMedia(MOBILE_QUERY).matches) {
+        setCentered(false);
+        return;
+      }
+
+      const viewportHeight =
+        window.visualViewport?.height ?? window.innerHeight;
+      const spaceBelow =
+        viewportHeight -
+        trigger.getBoundingClientRect().bottom -
+        SIDE_OFFSET -
+        VIEWPORT_GUTTER;
+
+      setCentered(popup.scrollHeight > spaceBelow);
+    };
+
+    // ResizeObserver fires once on observe (after layout, before paint),
+    // which covers the initial measurement.
     const observer = new ResizeObserver(update);
     observer.observe(popup);
     window.addEventListener("resize", update);
@@ -117,7 +145,7 @@ function usePopoverPlacement(open: boolean) {
       window.removeEventListener("scroll", update);
       window.visualViewport?.removeEventListener("resize", update);
     };
-  }, [open, popup, update]);
+  }, [open, popup]);
 
   return { triggerRef, popupRef: setPopup, centered };
 }
@@ -129,16 +157,14 @@ const themeOptions = [
 
 export function DisplayPreferences() {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
+  const mounted = useMounted();
   const [animations, setAnimations] = useAnimationsPreference();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const { triggerRef, popupRef, centered } = usePopoverPlacement(open);
 
-  const themeLabelId = React.useId();
-  const animationsLabelId = React.useId();
-  const animationsDescriptionId = React.useId();
-
-  React.useEffect(() => setMounted(true), []);
+  const themeLabelId = useId();
+  const animationsLabelId = useId();
+  const animationsDescriptionId = useId();
 
   const currentTheme = mounted ? (theme ?? "light") : undefined;
 
@@ -221,7 +247,7 @@ export function DisplayPreferences() {
                 onCheckedChange={setAnimations}
                 aria-labelledby={animationsLabelId}
                 aria-describedby={animationsDescriptionId}
-                className={`h-7 w-12 border data-unchecked:bg-muted data-checked:bg-secondary **:data-[slot=switch-thumb]:size-5 **:data-[slot=switch-thumb]:border [&_[data-slot=switch-thumb]]:border- **:data-[slot=switch-thumb]:bg-card`}
+                className={`h-7 w-12 border data-unchecked:bg-muted data-checked:bg-secondary **:data-[slot=switch-thumb]:size-5 **:data-[slot=switch-thumb]:border **:data-[slot=switch-thumb]:bg-card`}
               />
             </div>
           </div>

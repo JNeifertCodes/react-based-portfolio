@@ -2,11 +2,7 @@ import Link from "next/link";
 
 export function SiteFooter() {
   return (
-    <footer
-      id="footer"
-      aria-labelledby="site-footer"
-      className="bg-navbar-header-bg text-foreground"
-    >
+    <footer className="bg-navbar-header-bg text-foreground">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-8 md:px-11">
         <Link
           href="#hero"
