@@ -11,14 +11,15 @@ export function Hero() {
         Jenna Neifert
       </h1>
 
-      <h2 className="text-heading-md leading-tight">Software Engineer</h2>
+      <p className="text-heading-md leading-tight">Software Engineer</p>
 
       <p className="max-w-3xl text-body-lg leading-relaxed">
         I build accessible, human-centered interfaces for education and finance,
-        where people need to trust what's on the screen.
-        <br></br>
-        <br></br>6 years across education and finance at Lumen Learning,
-        Eduplanet21, and Vanguard. Vue and TypeScript today, React next.
+        where people need to trust what’s on the screen.
+      </p>
+      <p className="max-w-3xl text-body-lg leading-relaxed">
+        6 years across education and finance at Lumen Learning, Eduplanet21, and
+        Vanguard. Vue and TypeScript today, React next.
       </p>
 
       <div className="mt-1 flex flex-wrap items-center justify-between gap-4">
@@ -30,7 +31,6 @@ export function Hero() {
               href="/Jenna_Neifert_Resume.pdf"
               download="Jenna_Neifert_Resume.pdf"
               type="application/pdf"
-              aria-label="Download Jenna Neifert's resume (PDF)"
             />
           }
           className="border-input hover:underline"

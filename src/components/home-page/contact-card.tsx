@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Copy, Download, ExternalLink, Mail } from "lucide-react";
-import { useId, useState } from "react";
+import { useId, useState, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -34,10 +34,23 @@ function ContactCard({
   const labelId = useId();
   const [copied, setCopied] = useState(false);
 
+  useEffect(() => {
+    if (!copied) return;
+
+    const timer = setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [copied]);
+
   const copy = async () => {
-    await navigator.clipboard.writeText(value);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+    } catch (error) {
+      console.error("Failed to copy text:", error);
+    }
   };
 
   return (

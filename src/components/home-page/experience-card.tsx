@@ -17,6 +17,7 @@ type ExperienceCardProps = {
   startDate: DateValue;
   endDate?: DateValue;
   description: string;
+  highlights?: string[];
   technologies: string[];
   headingLevel?: "h2" | "h3" | "h4";
   className?: string;
@@ -30,6 +31,7 @@ function ExperienceCard({
   startDate,
   endDate,
   description,
+  highlights = [],
   technologies,
   headingLevel: Heading = "h3",
   className,
@@ -81,6 +83,17 @@ function ExperienceCard({
           </div>
 
           <p className="text-body-lg">{description}</p>
+
+          {highlights.length > 0 && (
+            <ul
+              aria-label="Highlights"
+              className="flex list-disc flex-col gap-2 pl-5 text-body-md"
+            >
+              {highlights.map((highlight) => (
+                <li key={highlight}>{highlight}</li>
+              ))}
+            </ul>
+          )}
 
           {technologies.length > 0 && (
             <ul aria-label="Technologies used" className="flex flex-wrap gap-2">

@@ -2,6 +2,13 @@ import workExperience from "@/app/work-experience.json";
 
 import { ExperienceCard } from "./experience-card";
 
+const formatMonth = (dateString: string) => {
+  if (!dateString) return "";
+
+  const date = new Date(`${dateString}-02`);
+  return date.toLocaleString("en-US", { month: "short", year: "numeric" });
+};
+
 export function Experience() {
   return (
     <section
@@ -18,7 +25,8 @@ export function Experience() {
 
       <ul className="flex flex-col gap-6">
         {workExperience.map((job) => {
-          const [startLabel, endLabel] = job.dateLabel.split(" – ");
+          const startLabel = formatMonth(job.startDate);
+          const endLabel = formatMonth(job.endDate);
 
           return (
             <li key={job.id}>
@@ -34,6 +42,7 @@ export function Experience() {
                     : undefined
                 }
                 description={job.context}
+                highlights={job.highlights}
                 technologies={job.tags}
               />
             </li>
