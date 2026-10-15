@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@wrksz/themes/next";
 import { MotionProvider } from "@/components/home-page/motion-provider";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <MotionProvider>{children}</MotionProvider>
         </ThemeProvider>
       </body>
+      <Analytics />
     </html>
   );
 }
