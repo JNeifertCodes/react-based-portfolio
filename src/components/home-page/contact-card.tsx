@@ -21,7 +21,7 @@ const actionButton = {
   variant: "outline",
   size: "icon-lg",
   className:
-    "relative bg-muted hover:outline-2 hover:outline-offset-2 hover:outline-ring after:absolute after:bottom-1.5 after:left-1/2 after:h-0.5 after:w-4 after:-translate-x-1/2 after:bg-current after:opacity-0 hover:after:opacity-100",
+    "relative bg-muted hover:outline-2 hover:outline-offset-2 hover:outline-ring after:absolute after:bottom-1.5 after:left-1/2 after:h-0.5 after:w-4 after:-translate-x-1/2 after:origin-left after:scale-x-0 after:bg-current hover:after:scale-x-100 focus-visible:after:scale-x-100 motion-allowed:after:transition-transform motion-allowed:after:duration-250 motion-allowed:after:ease-out",
 } as const;
 
 function ContactCard({

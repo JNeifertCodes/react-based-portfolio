@@ -33,9 +33,9 @@ export function Hero() {
               type="application/pdf"
             />
           }
-          className="border-input hover:underline"
+          className="group/underline border-input"
         >
-          Download resume (PDF)
+          <span className="link-underline">Download resume (PDF)</span>
         </Button>
 
         <Button
@@ -43,9 +43,9 @@ export function Hero() {
           size="lg"
           nativeButton={false}
           render={<a href="#contact" />}
-          className={`border-input hover:underline`}
+          className="group/underline border-input"
         >
-          Contact me
+          <span className="link-underline">Contact me</span>
         </Button>
       </div>
     </section>

@@ -6,7 +6,7 @@ export function SiteFooter() {
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-8 md:px-11">
         <Link
           href="#hero"
-          className="rounded-sm p-1 text-body-md font-normal underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring"
+          className="rounded-sm p-1 text-body-md font-normal outline-none link-underline focus-visible:ring-2 focus-visible:ring-ring"
         >
           Jenna Neifert
         </Link>

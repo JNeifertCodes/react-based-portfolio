@@ -173,10 +173,10 @@ export function DisplayPreferences() {
       <PopoverTrigger
         ref={triggerRef}
         render={
-          <Button className={`border-input hover:underline cursor-pointer`} />
+          <Button className="group/underline border-input cursor-pointer" />
         }
       >
-        Display preferences
+        <span className="link-underline">Display preferences</span>
       </PopoverTrigger>
 
       <PopoverContent
@@ -217,12 +217,12 @@ export function DisplayPreferences() {
               <ToggleGroupItem
                 key={option.value}
                 value={option.value}
-                className={`h-10 rounded-lg text-body-lg text-muted-foreground  aria-pressed:bg-secondary aria-pressed:text-secondary-foreground hover:underline`}
+                className={`h-10 rounded-lg text-body-lg text-muted-foreground  aria-pressed:bg-secondary aria-pressed:text-secondary-foreground group/underline`}
               >
                 {currentTheme === option.value && (
                   <Check aria-hidden="true" className="size-5" />
                 )}
-                {option.label}
+                <span className="link-underline">{option.label}</span>
               </ToggleGroupItem>
             ))}
           </ToggleGroup>

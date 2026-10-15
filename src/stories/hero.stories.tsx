@@ -20,3 +20,32 @@ export const Default: Story = {
     ).toHaveAttribute("href", "#contact");
   },
 };
+
+export const UnderlineRespectsMotionPreference: Story = {
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    const root = canvasElement.ownerDocument.documentElement;
+    const previous = root.dataset.motion;
+    const underline = canvas.getByText("Contact me");
+    const style = getComputedStyle(underline);
+
+    try {
+      root.dataset.motion = "on";
+      await expect(style.transitionProperty).toBe("background-size");
+      await expect(style.transitionDuration).not.toBe("0s");
+
+      root.dataset.motion = "off";
+      await expect(style.transitionDuration).toBe("0s");
+
+      // With motion off the underline still appears on keyboard focus, at full
+      // width immediately.
+      await userEvent.tab();
+      await userEvent.tab();
+      await expect(canvas.getByRole("button", { name: /contact me/i })).toHaveFocus();
+      await expect(style.backgroundSize).toBe("100% 2px");
+    } finally {
+      if (previous === undefined) delete root.dataset.motion;
+      else root.dataset.motion = previous;
+      (canvasElement.ownerDocument.activeElement as HTMLElement | null)?.blur();
+    }
+  },
+};

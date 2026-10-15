@@ -24,7 +24,7 @@ export function SiteHeader() {
           href="#hero"
           className={cn(
             "rounded-sm bg-transparent p-1 text-body-md font-normal text-foreground",
-            "underline-offset-4 hover:bg-transparent hover:text-foreground hover:underline",
+            "link-underline hover:bg-transparent hover:text-foreground",
             "focus:bg-transparent focus:text-foreground focus-visible:ring-2 focus-visible:ring-ring",
             "data-highlighted:bg-transparent",
           )}
@@ -42,12 +42,12 @@ export function SiteHeader() {
                     href={link.href}
                     className={cn(
                       "rounded-sm bg-transparent p-1 text-body-md font-normal text-foreground",
-                      "underline-offset-4 hover:bg-transparent hover:text-foreground hover:underline",
+                      "group/underline hover:bg-transparent hover:text-foreground",
                       "focus:bg-transparent focus:text-foreground",
                       "data-highlighted:bg-transparent",
                     )}
                   >
-                    {link.label}
+                    <span className="link-underline">{link.label}</span>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               ))}

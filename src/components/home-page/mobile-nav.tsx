@@ -47,9 +47,9 @@ export function MobileNav({ links }: { links: NavLink[] }) {
                 <a
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block border-b border-border py-4 text-body-lg underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                  className="block border-b border-border py-4 text-body-lg group/underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
                 >
-                  {link.label}
+                  <span className="link-underline">{link.label}</span>
                 </a>
               </li>
             ))}

@@ -4,6 +4,48 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Motion is allowed when the in-app toggle is on, or, before it has been
+   applied, when the OS does not ask for reduced motion. */
+@custom-variant motion-allowed {
+  :root[data-motion="on"] & {
+    @slot;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :root:not([data-motion]) & {
+      @slot;
+    }
+  }
+}
+
+/* Underline drawn left to right on hover and focus-visible. Apply it to the
+   element itself, or to an inline child of a `group/underline` ancestor (use a
+   child when the ancestor has its own transition or is not inline). With motion
+   off the underline appears instantly. */
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-origin: content-box;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+
+  @media (hover: hover) {
+    &:hover,
+    :where(.group\/underline):hover & {
+      background-size: 100% 2px;
+    }
+  }
+
+  &:focus-visible,
+  :where(.group\/underline):focus-visible & {
+    background-size: 100% 2px;
+  }
+
+  @variant motion-allowed {
+    transition: background-size 250ms ease-out;
+  }
+}
+
 html {
   scroll-padding-top: 7rem;
 }
