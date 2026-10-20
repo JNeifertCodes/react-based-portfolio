@@ -28,8 +28,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           <MotionProvider>{children}</MotionProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
-      <Analytics />
     </html>
   );
 }
