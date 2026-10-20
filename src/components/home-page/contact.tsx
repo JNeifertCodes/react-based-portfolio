@@ -9,7 +9,7 @@ export function Contact() {
       aria-labelledby="contact-title"
       className="mx-auto flex max-w-5xl flex-col gap-4 px-6 pt-10 pb-16 text-foreground md:px-11"
     >
-      <h2 id="contact-title" className="text-heading-md leading-tight">
+      <h2 id="contact-title" className="text-heading-md">
         Contact
       </h2>
 

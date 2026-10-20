@@ -5,7 +5,7 @@ export function About() {
       aria-labelledby="about-title"
       className="mx-auto flex max-w-5xl flex-col gap-4 px-6 pt-10 pb-16 text-foreground md:px-11"
     >
-      <h2 id="about-title" className="text-heading-md leading-tight">
+      <h2 id="about-title" className="text-heading-md">
         About
       </h2>
 

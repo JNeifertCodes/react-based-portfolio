@@ -18,11 +18,11 @@ export function Hero() {
       aria-labelledby="hero-title"
       className="mx-auto flex max-w-5xl flex-col gap-4 px-6 pt-10 pb-16 text-foreground md:px-11"
     >
-      <h1 id="hero-title" className="text-heading-lg leading-tight">
+      <h1 id="hero-title" className="text-heading-lg">
         Jenna Neifert
       </h1>
 
-      <p className="text-heading-md leading-tight">Software Engineer</p>
+      <p className="text-heading-md">Software Engineer</p>
 
       <p className="max-w-3xl text-lg leading-relaxed">
         I build accessible, human-centered interfaces for education and finance,
