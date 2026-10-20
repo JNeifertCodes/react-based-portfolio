@@ -4,6 +4,7 @@ import { ExperienceCard } from "./experience-card";
 
 const formatMonth = (dateString: string) => {
   if (!dateString) return "";
+  if (dateString.toLocaleLowerCase() === "present") return dateString;
 
   const date = new Date(`${dateString}-02`);
   return date.toLocaleString("en-US", { month: "short", year: "numeric" });
