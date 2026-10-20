@@ -54,10 +54,10 @@ function ContactCard({
     >
       <CardContent className="flex items-center justify-between gap-4">
         <div className="flex min-w-0 flex-col gap-2">
-          <p id={labelId} className="text-body-sm">
+          <p id={labelId} className="text-sm">
             {label}
           </p>
-          <p className="text-body-lg break-all">{value}</p>
+          <p className="text-lg break-all">{value}</p>
         </div>
 
         {actions.length > 0 && (

@@ -24,11 +24,11 @@ export function Hero() {
 
       <p className="text-heading-md leading-tight">Software Engineer</p>
 
-      <p className="max-w-3xl text-body-lg leading-relaxed">
+      <p className="max-w-3xl text-lg leading-relaxed">
         I build accessible, human-centered interfaces for education and finance,
         where people need to trust what’s on the screen.
       </p>
-      <p className="max-w-3xl text-body-lg leading-relaxed">
+      <p className="max-w-3xl text-lg leading-relaxed">
         6 years across education and finance at Lumen Learning, Eduplanet21, and
         Vanguard. Vue and TypeScript today, React next.
       </p>
