@@ -45,7 +45,7 @@ function ExperienceCard({
         className={cn("ring-border [--card-spacing:--spacing(6)]", className)}
       >
         <CardContent className="grid gap-4 sm:grid-cols-[12rem_1fr] sm:gap-8">
-          <p className="text-body-sm sm:pt-1.5">
+          <p className="text-sm sm:pt-1.5">
             <time dateTime={startDate.dateTime}>{startDate.label}</time>
             <span aria-hidden="true"> – </span>
             <span className="sr-only"> to </span>
@@ -83,12 +83,12 @@ function ExperienceCard({
               {location && <CardDescription>{location}</CardDescription>}
             </div>
 
-            <p className="text-body-lg">{description}</p>
+            <p className="text-lg">{description}</p>
 
             {highlights.length > 0 && (
               <ul
                 aria-label="Highlights"
-                className="flex list-disc flex-col gap-2 pl-5 text-body-md"
+                className="flex list-disc flex-col gap-2 pl-5 text-base"
               >
                 {highlights.map((highlight) => (
                   <li key={highlight}>{highlight}</li>
@@ -104,7 +104,7 @@ function ExperienceCard({
                 {technologies.map((tech) => (
                   <li
                     key={tech}
-                    className="rounded-full border border-current bg-accent px-3 py-1 text-body-sm text-accent-foreground"
+                    className="rounded-full border border-current bg-accent px-3 py-1 text-sm text-accent-foreground"
                   >
                     {tech}
                   </li>

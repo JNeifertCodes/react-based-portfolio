@@ -23,7 +23,7 @@ export function SiteHeader() {
         <Link
           href="#hero"
           className={cn(
-            "rounded-sm bg-transparent p-1 text-body-md font-normal text-foreground",
+            "rounded-sm bg-transparent p-1 text-base text-foreground",
             "link-underline hover:bg-transparent hover:text-foreground",
             "focus:bg-transparent focus:text-foreground focus-visible:ring-2 focus-visible:ring-ring",
             "data-highlighted:bg-transparent",
@@ -41,7 +41,7 @@ export function SiteHeader() {
                   <NavigationMenuLink
                     href={link.href}
                     className={cn(
-                      "rounded-sm bg-transparent p-1 text-body-md font-normal text-foreground",
+                      "rounded-sm bg-transparent p-1 text-base text-foreground",
                       "group/underline hover:bg-transparent hover:text-foreground",
                       "focus:bg-transparent focus:text-foreground",
                       "data-highlighted:bg-transparent",

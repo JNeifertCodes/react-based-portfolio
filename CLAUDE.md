@@ -65,7 +65,7 @@ public/                    Static assets, including Jenna_Neifert_Resume.pdf
 
 ### Styling
 
-Tokens are defined in `globals.css`: colors in `:root` and `.dark`, then mapped through `@theme inline`. Use the custom type scale (`text-heading-lg`, `text-heading-md`, `text-body-lg`, `text-body-md`, `text-body-sm`) and semantic color utilities (`bg-background`, `text-foreground`, `bg-navbar-header-bg`, etc.) rather than raw values.
+Tokens are defined in `globals.css`: colors in `:root` and `.dark`, then mapped through `@theme inline`. Use the custom type scale (`text-heading-lg`, `text-heading-md`) and semantic color utilities (`bg-background`, `text-foreground`, `bg-navbar-header-bg`, etc.) rather than raw values.
 
 ## Next.js 16 notes
 
@@ -82,7 +82,7 @@ Check `node_modules/next/dist/docs/` before using any Next API. Already in use:
 - Use `Button` only for actions (copy, download, open the mail app). A link that should look like a button is a plain `<a>` styled with `buttonVariants({ variant, size })`; don't render `<a>` through `Button` with `nativeButton={false}`, because Base UI adds `role="button"`.
 - State is exposed via attributes: `data-open`, `data-highlighted`, `aria-pressed`, `aria-checked`.
 - `PopoverContent` accepts a custom `positionerClassName` prop passed to the Positioner.
-- `cn` is imported from either `"cn"` or `"@/lib/utils"`; both resolve to the same function.
+- Import `cn` from `"@/lib/utils"`, never from `"cn"` directly. The local `cn` registers the custom type scale (`text-heading-*`, `text-body-*`) as font sizes, so they merge correctly.
 
 ## Accessibility
 

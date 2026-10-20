@@ -134,7 +134,7 @@ export function DisplayPreferences() {
 
         {/* Theme */}
         <div className="flex flex-col gap-3">
-          <span id={themeLabelId} className="text-body-lg">
+          <span id={themeLabelId} className="text-lg">
             Theme
           </span>
 
@@ -152,7 +152,7 @@ export function DisplayPreferences() {
               <ToggleGroupItem
                 key={option.value}
                 value={option.value}
-                className="group/underline h-10 rounded-lg text-body-lg text-muted-foreground aria-pressed:bg-secondary aria-pressed:text-secondary-foreground"
+                className="group/underline h-10 rounded-lg text-lg text-muted-foreground aria-pressed:bg-secondary aria-pressed:text-secondary-foreground"
               >
                 {currentTheme === option.value && (
                   <Check aria-hidden="true" className="size-5" />
@@ -168,13 +168,13 @@ export function DisplayPreferences() {
         {/* Animations */}
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between gap-4">
-            <span id={animationsLabelId} className="text-body-lg">
+            <span id={animationsLabelId} className="text-lg">
               Animations
             </span>
 
             <div className="flex items-center gap-3">
               {/* Visible state text; the switch itself announces checked state. */}
-              <span aria-hidden="true" className="text-body-lg">
+              <span aria-hidden="true" className="text-lg">
                 {animations ? "On" : "Off"}
               </span>
               <Switch
@@ -187,10 +187,7 @@ export function DisplayPreferences() {
             </div>
           </div>
 
-          <PopoverDescription
-            id={animationsDescriptionId}
-            className="text-body-sm"
-          >
+          <PopoverDescription id={animationsDescriptionId} className="text-sm">
             Motion initially follows your device&rsquo;s reduced-motion
             preference. You can override it here.
           </PopoverDescription>

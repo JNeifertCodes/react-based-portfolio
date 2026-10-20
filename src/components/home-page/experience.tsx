@@ -17,7 +17,7 @@ export function Experience() {
       aria-labelledby="experience-title"
       className="mx-auto flex max-w-5xl flex-col gap-6 px-6 pb-16 text-foreground md:px-11"
     >
-      <h2 id="experience-title" className="text-heading-md leading-tight">
+      <h2 id="experience-title" className="text-heading-md">
         Experience
       </h2>
 
