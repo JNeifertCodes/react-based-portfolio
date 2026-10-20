@@ -12,11 +12,11 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = { args: { size: "lg" } };
-
-export const Secondary: Story = {
-  args: { variant: "secondary", size: "lg", children: "Contact me" },
+export const Default: Story = {
+  args: { size: "lg", children: "Contact me" },
 };
+
+export const Secondary: Story = { args: { variant: "secondary", size: "lg" } };
 
 export const Outline: Story = { args: { variant: "outline" } };
 
@@ -42,7 +42,7 @@ export const IconOnly: Story = {
 // keep the link role. Base UI's Button would add role="button".
 export const AsLink: Story = {
   render: () => (
-    <a href="#contact" className={buttonVariants({ variant: "secondary" })}>
+    <a href="#contact" className={buttonVariants()}>
       Contact me
     </a>
   ),
@@ -55,10 +55,10 @@ export const AsLink: Story = {
 };
 
 export const CssCheck: Story = {
-  args: { variant: "secondary", children: "Contact me" },
+  args: { children: "Contact me" },
   play: async ({ canvas }) => {
     const button = canvas.getByRole("button", { name: /contact me/i });
-    // secondary uses bg-secondary (--secondary: #4338ca) — fails if globals.css did not load.
+    // default uses bg-primary (--palette-indigo-700: #4338ca) — fails if globals.css did not load.
     await expect(getComputedStyle(button).backgroundColor).toBe(
       "rgb(67, 56, 202)",
     );

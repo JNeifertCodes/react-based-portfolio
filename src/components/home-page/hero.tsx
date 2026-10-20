@@ -36,6 +36,7 @@ export function Hero() {
       <div className="mt-1 flex flex-wrap items-center justify-between gap-4">
         <Button
           type="button"
+          variant="secondary"
           size="lg"
           onClick={() => followUrl(RESUME_HREF, RESUME_FILENAME)}
           className="group/underline border-input"
@@ -45,7 +46,6 @@ export function Hero() {
 
         <Button
           type="button"
-          variant="secondary"
           size="lg"
           onClick={() => followUrl(`mailto:${EMAIL}`)}
           aria-describedby={contactDescriptionId}

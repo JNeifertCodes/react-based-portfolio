@@ -34,7 +34,7 @@ export function MobileNav({ links }: { links: NavLink[] }) {
 
       <SheetContent
         side="right"
-        className="w-72 border-l border-border bg-navbar-header-bg p-6"
+        className="w-72 border-l border-border bg-header p-6"
       >
         <SheetHeader className="p-0">
           <SheetTitle className="text-base">Menu</SheetTitle>

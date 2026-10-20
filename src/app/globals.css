@@ -73,93 +73,117 @@ html {
 }
 
 :root {
-  --background: #f7fbfc;
-  --foreground: #4338ca;
-  --card: #ffffff;
-  --card-foreground: #4338ca;
-  --popover: #ffffff;
-  --popover-foreground: #4338ca;
-  --border: #c7b8f5;
+  --palette-white: #ffffff;
+  --palette-mist-50: #f7fbfc;
 
-  /* Sticky header */
-  --navbar-header-bg: #eae0ff;
+  --palette-violet-50: #f3f0ff;
+  --palette-violet-100: #ede9fe;
+  --palette-violet-150: #eae0ff;
+  --palette-violet-200: #e9d7ff;
+  --palette-violet-300: #c7b8f5;
 
-  /* Primary Button */
-  --primary: #ffffff;
-  --primary-foreground: #4338ca;
+  --palette-purple-800: #6a12ad;
+  --palette-purple-900: #5d1d95;
 
-  /* Secondary Button */
-  --secondary: #4338ca;
-  --secondary-foreground: #ffffff;
+  --palette-indigo-300: #a5a9f5;
+  --palette-indigo-700: #4338ca;
 
-  /* Contact button */
-  --muted: #f3f0ff;
-  --muted-foreground: #4338ca;
+  --palette-ink-800: #2e3152;
+  --palette-ink-850: #1d2036;
+  --palette-ink-900: #171a2d;
+  --palette-ink-950: #0f1020;
+  --palette-navy-950: #0f0030;
 
-  /* Technology chip */
-  --accent: #ede9fe;
-  --accent-foreground: #4338ca;
+  --palette-red-600: oklch(0.577 0.245 27.325);
+}
 
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --input: #c7b8f5;
-  --ring: #6a12ad;
+/* Semantic */
+:root {
+  --background: var(--palette-mist-50);
+  --foreground: var(--palette-indigo-700);
+  --card: var(--palette-white);
+  --card-foreground: var(--palette-indigo-700);
+  --popover: var(--palette-white);
+  --popover-foreground: var(--palette-indigo-700);
+  --header: var(--palette-violet-150);
+
+  /* Strong brand fill: main call to action, checked and pressed states */
+  --primary: var(--palette-indigo-700);
+  --primary-foreground: var(--palette-white);
+
+  /* Quiet fill: secondary actions */
+  --secondary: var(--palette-white);
+  --secondary-foreground: var(--palette-indigo-700);
+
+  /* Subtle fill: icon buttons, hover, unchecked controls */
+  --muted: var(--palette-violet-50);
+  --muted-foreground: var(--palette-indigo-700);
+
+  /* Decorative fill: tags */
+  --accent: var(--palette-violet-100);
+  --accent-foreground: var(--palette-indigo-700);
+
+  --destructive: var(--palette-red-600);
+  --destructive-foreground: var(--palette-red-600);
+  --border: var(--palette-violet-300);
+  --input: var(--palette-violet-300);
+  --ring: var(--palette-purple-800);
   --radius: 0.5rem;
 }
 
 .dark {
-  --background: #0f1020;
-  --foreground: #e9d7ff;
-  --card: #171a2d;
-  --card-foreground: #e9d7ff;
-  --popover: #171a2d;
-  --popover-foreground: #e9d7ff;
-  --border: #171a2d;
+  --background: var(--palette-ink-950);
+  --foreground: var(--palette-violet-200);
+  --card: var(--palette-ink-900);
+  --card-foreground: var(--palette-violet-200);
+  --popover: var(--palette-ink-900);
+  --popover-foreground: var(--palette-violet-200);
+  --header: var(--palette-navy-950);
 
-  /* Sticky header */
-  --navbar-header-bg: #0f0030;
+  --primary: var(--palette-indigo-700);
+  --primary-foreground: var(--palette-white);
 
-  /* Primary Button */
-  --primary: #171a2d;
-  --primary-foreground: #e9d7ff;
+  --secondary: var(--palette-ink-900);
+  --secondary-foreground: var(--palette-violet-200);
 
-  /* Secondary Button */
-  --secondary: #4338ca;
-  --secondary-foreground: #ffffff;
+  --muted: var(--palette-ink-850);
+  --muted-foreground: var(--palette-violet-200);
 
-  /* Contact button */
-  --muted: #0f1020;
-  --muted-foreground: #e9d7ff;
+  --accent: var(--palette-purple-900);
+  --accent-foreground: var(--palette-white);
 
-  /* technology chip */
-  --accent: #5d1d95;
-  --accent-foreground: #ffffff;
-
-  --input: #4338ca;
-  --ring: #a5a9f5;
+  --border: var(--palette-ink-800);
+  --input: var(--palette-indigo-700);
+  --ring: var(--palette-indigo-300);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+  --color-header: var(--header);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-
-  --color-navbar-header-bg: var(--navbar-header-bg);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-destructive: var(--destructive);
+
+  /* Matches the previous radii exactly; md stays equal to --radius. */
+  --radius-sm: calc(var(--radius) - 4px);
   --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 

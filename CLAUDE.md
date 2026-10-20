@@ -65,7 +65,7 @@ public/                    Static assets, including Jenna_Neifert_Resume.pdf
 
 ### Styling
 
-Tokens are defined in `globals.css`: colors in `:root` and `.dark`, then mapped through `@theme inline`. Use the custom type scale (`text-heading-lg`, `text-heading-md`) and semantic color utilities (`bg-background`, `text-foreground`, `bg-navbar-header-bg`, etc.) rather than raw values.
+Tokens are defined in `globals.css` in two layers: raw `--palette-*` colors, then semantic role tokens in `:root` and `.dark` that point at the palette, mapped through `@theme inline`. Components use only the semantic layer. `primary` is the strong indigo fill (main action, checked and pressed states); `secondary` is the quiet fill. Use the custom type scale (`text-heading-lg`, `text-heading-md`) and semantic color utilities (`bg-background`, `text-foreground`, `bg-header`, etc.) rather than raw values or `--palette-*` variables.
 
 ## Next.js 16 notes
 
