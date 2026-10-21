@@ -1,7 +1,7 @@
 import { ExternalLink } from "lucide-react";
 
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { useId } from "react";
 
 type DateValue = {
@@ -41,9 +41,7 @@ function ExperienceCard({
 
   return (
     <article aria-labelledby={headingId}>
-      <Card
-        className={cn("ring-border [--card-spacing:--spacing(6)]", className)}
-      >
+      <Card size="lg" className={className}>
         <CardContent className="grid gap-4 sm:grid-cols-[12rem_1fr] sm:gap-8">
           <p className="text-sm sm:pt-1.5">
             <time dateTime={startDate.dateTime}>{startDate.label}</time>
@@ -102,12 +100,9 @@ function ExperienceCard({
                 className="flex flex-wrap gap-2"
               >
                 {technologies.map((tech) => (
-                  <li
-                    key={tech}
-                    className="rounded-full border border-current bg-accent px-3 py-1 text-sm text-accent-foreground"
-                  >
+                  <Badge key={tech} variant="tag" render={<li />}>
                     {tech}
-                  </li>
+                  </Badge>
                 ))}
               </ul>
             )}

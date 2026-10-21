@@ -1,5 +1,5 @@
 import { NavigationMenu as NavigationMenuPrimitive } from "@base-ui/react/navigation-menu"
-import { cva } from "class-variance-authority"
+import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 import { ChevronDownIcon } from "lucide-react"
 
@@ -120,17 +120,34 @@ function NavigationMenuPositioner({
   )
 }
 
+const navigationMenuLinkVariants = cva(
+  "flex items-center gap-2 outline-none focus-ring [&_svg:not([class*='size-'])]:size-4",
+  {
+    variants: {
+      variant: {
+        default:
+          "rounded-lg p-2 text-sm transition-all hover:bg-muted focus:bg-muted in-data-[slot=navigation-menu-content]:rounded-md data-active:bg-muted/50 data-active:hover:bg-muted data-active:focus:bg-muted",
+        // Text link with no fill on hover, focus or active. Wrap the label in
+        // <span className="link-underline"> for the hover and focus underline.
+        plain: "group/underline rounded-sm p-1 text-base text-foreground",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
 function NavigationMenuLink({
   className,
+  variant = "default",
   ...props
-}: NavigationMenuPrimitive.Link.Props) {
+}: NavigationMenuPrimitive.Link.Props &
+  VariantProps<typeof navigationMenuLinkVariants>) {
   return (
     <NavigationMenuPrimitive.Link
       data-slot="navigation-menu-link"
-      className={cn(
-        "flex items-center gap-2 rounded-lg p-2 text-sm transition-all outline-none hover:bg-muted focus:bg-muted focus-ring in-data-[slot=navigation-menu-content]:rounded-md data-active:bg-muted/50 data-active:hover:bg-muted data-active:focus:bg-muted [&_svg:not([class*='size-'])]:size-4",
-        className
-      )}
+      className={cn(navigationMenuLinkVariants({ variant }), className)}
       {...props}
     />
   )

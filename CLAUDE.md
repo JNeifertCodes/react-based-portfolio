@@ -82,7 +82,7 @@ Check `node_modules/next/dist/docs/` before using any Next API. Already in use:
 - Use `Button` only for actions (copy, download, open the mail app). A link that should look like a button is a plain `<a>` styled with `buttonVariants({ variant, size })`; don't render `<a>` through `Button` with `nativeButton={false}`, because Base UI adds `role="button"`.
 - State is exposed via attributes: `data-open`, `data-highlighted`, `aria-pressed`, `aria-checked`.
 - `PopoverContent` accepts a custom `positionerClassName` prop passed to the Positioner.
-- Import `cn` from `"@/lib/utils"`, never from `"cn"` directly. The local `cn` registers the custom type scale (`text-heading-*`) as font sizes, so they merge correctly.
+- Import `cn` from `"@/lib/utils"`, never from `"cn"` directly. `npx shadcn add` generates `from "cn"`, so change it after adding a component, and swap its focus classes for `focus-ring`. The local `cn` registers the custom type scale (`text-heading-*`) as font sizes, so they merge correctly.
 
 ## Accessibility
 

@@ -7,7 +7,6 @@ import {
   type ContactAction,
 } from "@/components/home-page/action-icon-button";
 import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 
 type ContactCardProps = {
   label: string;
@@ -50,7 +49,8 @@ function ContactCard({
     <Card
       role="group"
       aria-labelledby={labelId}
-      className={cn("ring-border [--card-spacing:--spacing(6)]", className)}
+      size="lg"
+      className={className}
     >
       <CardContent className="flex items-center justify-between gap-4">
         <div className="flex min-w-0 flex-col gap-2">
