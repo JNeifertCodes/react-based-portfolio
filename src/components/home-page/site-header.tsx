@@ -2,6 +2,7 @@ import Link from "next/link";
 import { StickyHeader } from "@/components/home-page/sticky-header";
 import { MobileNav } from "@/components/home-page/mobile-nav";
 import { DisplayPreferences } from "@/components/home-page/display-preferences";
+import { SiteContainer } from "@/components/home-page/site-container";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -18,7 +19,7 @@ const navLinks = [
 export function SiteHeader() {
   return (
     <StickyHeader>
-      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-6 py-8 motion-allowed:transition-[padding] motion-allowed:duration-200 motion-allowed:ease-out group-data-[compact=true]:py-3 md:px-11">
+      <SiteContainer className="flex w-full items-center justify-between gap-4 py-8 motion-allowed:transition-[padding] motion-allowed:duration-200 motion-allowed:ease-out group-data-[compact=true]:py-3">
         <Link
           href="#hero"
           className="rounded-sm p-1 text-base text-foreground link-underline focus-ring"
@@ -50,7 +51,7 @@ export function SiteHeader() {
         <div className="md:hidden">
           <MobileNav links={navLinks} />
         </div>
-      </div>
+      </SiteContainer>
     </StickyHeader>
   );
 }

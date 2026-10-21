@@ -1,22 +1,16 @@
-import { type ReactNode } from "react";
+import { type HTMLAttributes } from "react";
 
 import { cn } from "@/lib/utils";
 
-type SiteContainerProps = {
-  className?: string;
-  children: ReactNode;
-};
+type SiteContainerProps = HTMLAttributes<HTMLDivElement>;
 
-function SiteContainer({ className, children }: SiteContainerProps) {
+// Shared page width and gutters for the header and footer.
+function SiteContainer({ className, ...props }: SiteContainerProps) {
   return (
-    <section
-      className={cn(
-        "mx-auto flex max-w-5xl flex-col gap-4 px-6 pt-10 pb-16 text-foreground md:px-11",
-        className,
-      )}
-    >
-      {children}
-    </section>
+    <div
+      className={cn("mx-auto max-w-5xl px-6 md:px-11", className)}
+      {...props}
+    />
   );
 }
 
