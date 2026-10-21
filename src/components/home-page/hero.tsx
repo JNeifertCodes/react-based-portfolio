@@ -3,6 +3,7 @@
 import { useId } from "react";
 
 import { Section } from "@/components/home-page/section";
+import { SectionText } from "@/components/home-page/section-text";
 import { Button } from "@/components/ui/button";
 import { followUrl } from "@/lib/follow-url";
 
@@ -18,14 +19,14 @@ export function Hero() {
 
       <p className="text-heading-md">Software Engineer</p>
 
-      <p className="max-w-3xl text-lg leading-relaxed">
+      <SectionText>
         I build accessible, human-centered interfaces for education and finance,
         where people need to trust what’s on the screen.
-      </p>
-      <p className="max-w-3xl text-lg leading-relaxed">
+      </SectionText>
+      <SectionText>
         6 years across education and finance at Lumen Learning, Eduplanet21, and
         Vanguard. Vue and TypeScript today, React next.
-      </p>
+      </SectionText>
 
       <div className="mt-1 flex flex-wrap items-center justify-between gap-4">
         <Button

@@ -8,8 +8,14 @@ import { SiteFooter } from "@/components/home-page/site-footer";
 export default function Home() {
   return (
     <div>
+      <a
+        href="#main"
+        className="sr-only rounded-sm bg-background p-2 text-base text-foreground focus-ring focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60"
+      >
+        Skip to main content
+      </a>
       <SiteHeader />
-      <main className="bg-background">
+      <main id="main" className="bg-background">
         <Hero />
         <About />
         <Experience />
