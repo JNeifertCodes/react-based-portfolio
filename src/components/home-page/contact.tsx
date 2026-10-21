@@ -2,16 +2,17 @@ import contactList from "@/app/contact-list.json";
 
 import { ContactCard, type ContactAction } from "./contact-card";
 import { Section } from "./section";
+import { SectionText } from "./section-text";
 
 export function Contact() {
   return (
     <Section id="contact" title="Contact">
-      <p className="max-w-3xl text-lg leading-relaxed">
+      <SectionText>
         I’m looking for front-end or full-stack roles where I can keep building
         accessible interfaces and grow my back-end skills. If you’re working on
         something in education, finance, or anywhere trust and usability matter,
         I’d love to hear about it.
-      </p>
+      </SectionText>
 
       <ul className="flex flex-col gap-6">
         {contactList.map((item) => (
