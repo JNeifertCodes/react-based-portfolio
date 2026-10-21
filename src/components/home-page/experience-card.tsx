@@ -64,7 +64,7 @@ function ExperienceCard({
                     href={companyHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-sm group/underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                    className="inline-flex items-center gap-2 rounded-sm group/underline focus-ring"
                   >
                     <span>
                       <span className="link-underline">{title}</span>

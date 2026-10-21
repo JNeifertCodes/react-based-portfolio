@@ -88,7 +88,7 @@ Check `node_modules/next/dist/docs/` before using any Next API. Already in use:
 
 Accessibility is a core requirement. Follow existing patterns:
 
-- Every interactive element has a visible `focus-visible` ring.
+- Every interactive element gets the `focus-ring` utility (defined in `globals.css`): a 2px `--ring` outline, offset 2px, on `:focus-visible`. Don't add `focus-visible:ring-*` / `outline-*` classes, and don't style hover with an outline, since it would look the same as focus.
 - Associate controls with labels via `aria-labelledby` / `aria-describedby`, using `useId` for ids.
 - Decorative icons get `aria-hidden`; icon-only buttons get `aria-label`.
 - Announce transient state changes with an `aria-live` region.

@@ -62,6 +62,16 @@
   }
 }
 
+/* The one keyboard focus indicator for every interactive element. An outline
+   (not a box-shadow ring) follows the border radius, stays visible in forced
+   colors mode, and never shifts layout. */
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
 html {
   scroll-padding-top: 7rem;
 }
@@ -187,7 +197,8 @@ html {
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-  --text-heading-lg: 4rem;
+  /* Fluid: 2.5rem up to 400px wide, growing to 4rem at 800px. */
+  --text-heading-lg: clamp(2.5rem, 6vw + 1rem, 4rem);
   --text-heading-lg--font-weight: 700;
   --text-heading-lg--line-height: 1.1;
 
