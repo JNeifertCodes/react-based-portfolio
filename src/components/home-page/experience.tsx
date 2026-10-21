@@ -4,7 +4,6 @@ import { ExperienceCard } from "./experience-card";
 
 const formatMonth = (dateString: string) => {
   if (!dateString) return "";
-  if (dateString.toLocaleLowerCase() === "present") return dateString;
 
   const date = new Date(`${dateString}-02`);
   return date.toLocaleString("en-US", { month: "short", year: "numeric" });
@@ -24,7 +23,9 @@ export function Experience() {
       <ul className="flex flex-col gap-6">
         {workExperience.map((job) => {
           const startLabel = formatMonth(job.startDate);
-          const endLabel = formatMonth(job.endDate);
+          // "Present" is not a date; ExperienceCard renders it as plain text.
+          const isCurrent =
+            !job.endDate || job.endDate.toLowerCase() === "present";
 
           return (
             <li key={job.id}>
@@ -35,9 +36,9 @@ export function Experience() {
                 location={`${job.location} (${job.workArrangement.toLowerCase()})`}
                 startDate={{ label: startLabel, dateTime: job.startDate }}
                 endDate={
-                  job.endDate
-                    ? { label: endLabel, dateTime: job.endDate }
-                    : undefined
+                  isCurrent
+                    ? undefined
+                    : { label: formatMonth(job.endDate), dateTime: job.endDate }
                 }
                 description={job.context}
                 highlights={job.highlights}

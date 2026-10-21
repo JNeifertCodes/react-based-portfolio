@@ -65,7 +65,7 @@ public/                    Static assets, including Jenna_Neifert_Resume.pdf
 
 ### Styling
 
-Tokens are defined in `globals.css` in two layers: raw `--palette-*` colors, then semantic role tokens in `:root` and `.dark` that point at the palette, mapped through `@theme inline`. Components use only the semantic layer. `primary` is the strong indigo fill (main action, checked and pressed states); `secondary` is the quiet fill. Use the custom type scale (`text-heading-lg`, `text-heading-md`) and semantic color utilities (`bg-background`, `text-foreground`, `bg-header`, etc.) rather than raw values or `--palette-*` variables.
+Tokens are defined in `globals.css` in two layers: raw `--palette-*` colors, then semantic role tokens in `:root` and `.dark` that point at the palette, mapped through `@theme inline`. Components use only the semantic layer. `primary` is the strong indigo fill (main action, checked and pressed states); `secondary` is the quiet fill. Use the custom type scale (`text-heading-lg`, `text-heading-md`, `text-heading-sm`) and semantic color utilities (`bg-background`, `text-foreground`, `bg-header`, etc.) rather than raw values or `--palette-*` variables.
 
 ## Next.js 16 notes
 
@@ -82,7 +82,7 @@ Check `node_modules/next/dist/docs/` before using any Next API. Already in use:
 - Use `Button` only for actions (copy, download, open the mail app). A link that should look like a button is a plain `<a>` styled with `buttonVariants({ variant, size })`; don't render `<a>` through `Button` with `nativeButton={false}`, because Base UI adds `role="button"`.
 - State is exposed via attributes: `data-open`, `data-highlighted`, `aria-pressed`, `aria-checked`.
 - `PopoverContent` accepts a custom `positionerClassName` prop passed to the Positioner.
-- Import `cn` from `"@/lib/utils"`, never from `"cn"` directly. The local `cn` registers the custom type scale (`text-heading-*`, `text-body-*`) as font sizes, so they merge correctly.
+- Import `cn` from `"@/lib/utils"`, never from `"cn"` directly. `npx shadcn add` generates `from "cn"`, so change it after adding a component, and swap its focus classes for `focus-ring`. The local `cn` registers the custom type scale (`text-heading-*`) as font sizes, so they merge correctly.
 
 ## Accessibility
 
@@ -93,7 +93,7 @@ Accessibility is a core requirement. Follow existing patterns:
 - Decorative icons get `aria-hidden`; icon-only buttons get `aria-label`.
 - Announce transient state changes with an `aria-live` region.
 - Gate transitions with the `motion-allowed:` variant (defined in `globals.css`). It matches `html[data-motion="on"]`, or the OS `prefers-reduced-motion: no-preference` before `data-motion` is set, so it obeys the in-app toggle. `motion-reduce:` reads the OS setting only.
-- Hover and focus underlines use the `link-underline` utility: a `currentColor` gradient that draws in on `hover` / `focus-visible` and appears instantly with motion off. Put it on the link itself, or on an inline child `<span>` when the trigger has its own `transition-*` or is not inline (buttons, `NavigationMenuLink`, flex links); the trigger then gets `group/underline`. Don't use `hover:underline`.
+- Hover and focus underlines use the `link-underline` utility: a `currentColor` gradient that draws in on `hover` / `focus-visible` and appears instantly with motion off. Put it on the link itself, or on an inline child `<span>` when the trigger has its own `transition-*` or is not inline (buttons, `NavigationMenuLink`, flex links); the trigger then gets `group/underline`. `Button` and `buttonVariants` already include `group/underline`, so a button only needs the inner `<span className="link-underline">`. Don't use `hover:underline`.
 - `scroll-padding-top: 7rem` on `html` keeps anchor targets clear of the sticky header.
 
 ## Working preferences

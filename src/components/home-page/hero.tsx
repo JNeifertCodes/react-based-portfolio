@@ -39,7 +39,6 @@ export function Hero() {
           variant="secondary"
           size="lg"
           onClick={() => followUrl(RESUME_HREF, RESUME_FILENAME)}
-          className="group/underline border-input"
         >
           <span className="link-underline">Download resume (PDF)</span>
         </Button>
@@ -49,7 +48,6 @@ export function Hero() {
           size="lg"
           onClick={() => followUrl(`mailto:${EMAIL}`)}
           aria-describedby={contactDescriptionId}
-          className="group/underline border-input"
         >
           <span className="link-underline">Contact me</span>
         </Button>

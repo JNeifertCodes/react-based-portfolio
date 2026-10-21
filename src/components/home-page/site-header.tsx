@@ -8,7 +8,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "#about", label: "About" },
@@ -22,12 +21,7 @@ export function SiteHeader() {
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-6 py-8 motion-allowed:transition-[padding] motion-allowed:duration-200 motion-allowed:ease-out group-data-[compact=true]:py-3 md:px-11">
         <Link
           href="#hero"
-          className={cn(
-            "rounded-sm bg-transparent p-1 text-base text-foreground",
-            "link-underline hover:bg-transparent hover:text-foreground",
-            "focus:bg-transparent focus:text-foreground focus-ring",
-            "data-highlighted:bg-transparent",
-          )}
+          className="rounded-sm p-1 text-base text-foreground link-underline focus-ring"
         >
           Jenna Neifert
         </Link>
@@ -40,12 +34,7 @@ export function SiteHeader() {
                 <NavigationMenuItem key={link.href}>
                   <NavigationMenuLink
                     href={link.href}
-                    className={cn(
-                      "rounded-sm bg-transparent p-1 text-base text-foreground",
-                      "group/underline hover:bg-transparent hover:text-foreground",
-                      "focus:bg-transparent focus:text-foreground",
-                      "data-highlighted:bg-transparent",
-                    )}
+                    variant="plain"
                   >
                     <span className="link-underline">{link.label}</span>
                   </NavigationMenuLink>

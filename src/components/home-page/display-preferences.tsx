@@ -105,12 +105,7 @@ export function DisplayPreferences() {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger
-        ref={triggerRef}
-        render={
-          <Button className="group/underline border-input cursor-pointer" />
-        }
-      >
+      <PopoverTrigger ref={triggerRef} render={<Button />}>
         <span className="link-underline">Display preferences</span>
       </PopoverTrigger>
 
@@ -127,7 +122,7 @@ export function DisplayPreferences() {
         className="pointer-events-auto max-h-[calc(100dvh-2rem)] w-[min(22rem,calc(100vw-2rem))] gap-0 overflow-y-auto rounded-2xl border border-border p-6"
       >
         <PopoverHeader className="mb-6">
-          <PopoverTitle className="text-heading-md">
+          <PopoverTitle className="text-heading-sm">
             Display preferences
           </PopoverTitle>
         </PopoverHeader>
@@ -182,7 +177,7 @@ export function DisplayPreferences() {
                 onCheckedChange={setAnimations}
                 aria-labelledby={animationsLabelId}
                 aria-describedby={animationsDescriptionId}
-                className="h-7 w-12 border data-unchecked:bg-muted **:data-[slot=switch-thumb]:size-5 **:data-[slot=switch-thumb]:border **:data-[slot=switch-thumb]:bg-card"
+                className="h-7 w-12 border cursor-pointer data-unchecked:bg-muted **:data-[slot=switch-thumb]:size-5 **:data-[slot=switch-thumb]:border **:data-[slot=switch-thumb]:bg-card"
               />
             </div>
           </div>

@@ -2,7 +2,6 @@ import { Check, Copy, Download, ExternalLink, Mail } from "lucide-react";
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { followUrl } from "@/lib/follow-url";
-import { cn } from "@/lib/utils";
 
 type ContactAction = "email" | "copy" | "download" | "open";
 
@@ -15,14 +14,12 @@ type ActionIconButtonProps = {
   onCopy?: () => void;
 };
 
-const variant = "outline";
+const variant = "action";
 const size = "icon-lg";
-const actionClassName =
-  "relative bg-muted after:absolute after:bottom-1.5 after:left-1/2 after:h-0.5 after:w-4 after:-translate-x-1/2 after:origin-left after:scale-x-0 after:bg-current hover:after:scale-x-100 focus-visible:after:scale-x-100 motion-allowed:after:transition-transform motion-allowed:after:duration-250 motion-allowed:after:ease-out";
 
 // Navigation actions (email, open) are real links styled as buttons, so screen
 // readers announce them as links. Copy and download are buttons.
-const linkClassName = cn(buttonVariants({ variant, size }), actionClassName);
+const linkClassName = buttonVariants({ variant, size });
 
 function ActionIconButton({
   action,
@@ -38,7 +35,6 @@ function ActionIconButton({
         type="button"
         variant={variant}
         size={size}
-        className={actionClassName}
         onClick={onCopy}
         aria-label={`Copy ${label}`}
       >
@@ -56,7 +52,6 @@ function ActionIconButton({
         type="button"
         variant={variant}
         size={size}
-        className={actionClassName}
         onClick={() => followUrl(href, href.split("/").pop())}
         aria-label={`Download ${label}`}
       >
