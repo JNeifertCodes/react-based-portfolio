@@ -205,4 +205,8 @@ html {
   --text-heading-md: 1.625rem;
   --text-heading-md--font-weight: 600;
   --text-heading-md--line-height: 1.25;
+
+  --text-heading-sm: 1.25rem;
+  --text-heading-sm--font-weight: 600;
+  --text-heading-sm--line-height: 1.3;
 }

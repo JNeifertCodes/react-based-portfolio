@@ -127,7 +127,7 @@ export function DisplayPreferences() {
         className="pointer-events-auto max-h-[calc(100dvh-2rem)] w-[min(22rem,calc(100vw-2rem))] gap-0 overflow-y-auto rounded-2xl border border-border p-6"
       >
         <PopoverHeader className="mb-6">
-          <PopoverTitle className="text-heading-md">
+          <PopoverTitle className="text-heading-sm">
             Display preferences
           </PopoverTitle>
         </PopoverHeader>

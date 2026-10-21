@@ -58,7 +58,7 @@ function ExperienceCard({
 
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <Heading id={headingId} className="text-heading-md">
+              <Heading id={headingId} className="text-heading-sm">
                 {companyHref ? (
                   <a
                     href={companyHref}
