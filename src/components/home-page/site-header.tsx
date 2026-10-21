@@ -25,7 +25,7 @@ export function SiteHeader() {
           className={cn(
             "rounded-sm bg-transparent p-1 text-base text-foreground",
             "link-underline hover:bg-transparent hover:text-foreground",
-            "focus:bg-transparent focus:text-foreground focus-visible:ring-2 focus-visible:ring-ring",
+            "focus:bg-transparent focus:text-foreground focus-ring",
             "data-highlighted:bg-transparent",
           )}
         >
