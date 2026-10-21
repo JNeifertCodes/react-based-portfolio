@@ -76,6 +76,15 @@ html {
   scroll-padding-top: 7rem;
 }
 
+/* Tailwind v4 leaves buttons with the default cursor; restore the pointer for
+   every enabled button, including Base UI toggles and switches. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;

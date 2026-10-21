@@ -93,7 +93,7 @@ Accessibility is a core requirement. Follow existing patterns:
 - Decorative icons get `aria-hidden`; icon-only buttons get `aria-label`.
 - Announce transient state changes with an `aria-live` region.
 - Gate transitions with the `motion-allowed:` variant (defined in `globals.css`). It matches `html[data-motion="on"]`, or the OS `prefers-reduced-motion: no-preference` before `data-motion` is set, so it obeys the in-app toggle. `motion-reduce:` reads the OS setting only.
-- Hover and focus underlines use the `link-underline` utility: a `currentColor` gradient that draws in on `hover` / `focus-visible` and appears instantly with motion off. Put it on the link itself, or on an inline child `<span>` when the trigger has its own `transition-*` or is not inline (buttons, `NavigationMenuLink`, flex links); the trigger then gets `group/underline`. Don't use `hover:underline`.
+- Hover and focus underlines use the `link-underline` utility: a `currentColor` gradient that draws in on `hover` / `focus-visible` and appears instantly with motion off. Put it on the link itself, or on an inline child `<span>` when the trigger has its own `transition-*` or is not inline (buttons, `NavigationMenuLink`, flex links); the trigger then gets `group/underline`. `Button` and `buttonVariants` already include `group/underline`, so a button only needs the inner `<span className="link-underline">`. Don't use `hover:underline`.
 - `scroll-padding-top: 7rem` on `html` keeps anchor targets clear of the sticky header.
 
 ## Working preferences
