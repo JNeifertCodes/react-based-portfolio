@@ -1,14 +1,8 @@
+import { Section } from "@/components/home-page/section";
+
 export function About() {
   return (
-    <section
-      id="about"
-      aria-labelledby="about-title"
-      className="mx-auto flex max-w-5xl flex-col gap-4 px-6 pt-10 pb-16 text-foreground md:px-11"
-    >
-      <h2 id="about-title" className="text-heading-md">
-        About
-      </h2>
-
+    <Section id="about" title="About">
       <p className="max-w-3xl text-lg leading-relaxed">
         I’m a front-end developer with six years of experience building web
         applications that help people feel confident and in control, whether
@@ -31,6 +25,6 @@ export function About() {
         <b>Availability:</b> Open to roles: remote anywhere USA / hybrid /
         on-site in Mechanicsburg/Harrisburg PA area. Work in ET time zone.
       </p>
-    </section>
+    </Section>
   );
 }

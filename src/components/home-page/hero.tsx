@@ -2,6 +2,7 @@
 
 import { useId } from "react";
 
+import { Section } from "@/components/home-page/section";
 import { Button } from "@/components/ui/button";
 import { followUrl } from "@/lib/follow-url";
 
@@ -13,14 +14,7 @@ export function Hero() {
   const contactDescriptionId = useId();
 
   return (
-    <section
-      id="hero"
-      aria-labelledby="hero-title"
-      className="mx-auto flex max-w-5xl flex-col gap-4 px-6 pt-10 pb-16 text-foreground md:px-11"
-    >
-      <h1 id="hero-title" className="text-heading-lg">
-        Jenna Neifert
-      </h1>
+    <Section id="hero" title="Jenna Neifert" headingLevel="h1">
 
       <p className="text-heading-md">Software Engineer</p>
 
@@ -55,6 +49,6 @@ export function Hero() {
           Opens your email app to write to {EMAIL}
         </span>
       </div>
-    </section>
+    </Section>
   );
 }
