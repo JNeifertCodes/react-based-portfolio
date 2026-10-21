@@ -1,6 +1,7 @@
 import workExperience from "@/app/work-experience.json";
 
 import { ExperienceCard } from "./experience-card";
+import { Section } from "./section";
 
 const formatMonth = (dateString: string) => {
   if (!dateString) return "";
@@ -11,15 +12,7 @@ const formatMonth = (dateString: string) => {
 
 export function Experience() {
   return (
-    <section
-      id="experience"
-      aria-labelledby="experience-title"
-      className="mx-auto flex max-w-5xl flex-col gap-6 px-6 pb-16 text-foreground md:px-11"
-    >
-      <h2 id="experience-title" className="text-heading-md">
-        Experience
-      </h2>
-
+    <Section id="experience" title="Experience" className="gap-6 pt-0">
       <ul className="flex flex-col gap-6">
         {workExperience.map((job) => {
           const startLabel = formatMonth(job.startDate);
@@ -48,6 +41,6 @@ export function Experience() {
           );
         })}
       </ul>
-    </section>
+    </Section>
   );
 }

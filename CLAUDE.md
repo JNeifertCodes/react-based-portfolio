@@ -14,6 +14,8 @@ Single-page portfolio for Jenna Neifert, live at [www.jneifertcodes.com](https:/
 | `npm run build`                | Production build                       |
 | `npm run lint`                 | ESLint                                 |
 | `npm run storybook`            | Storybook at localhost:6006            |
+| `npx vitest run`               | Run story tests (Chromium, headless)   |
+| `npx tsc --noEmit`             | Typecheck                              |
 | `npx shadcn@latest add <name>` | Add a shadcn component                 |
 
 ## Architecture
@@ -21,7 +23,7 @@ Single-page portfolio for Jenna Neifert, live at [www.jneifertcodes.com](https:/
 ```
 src/
   app/
-    layout.tsx             Root layout: Inter font, ThemeProvider, metadata
+    layout.tsx             Root layout: Inter font, ThemeProvider, MotionProvider, Vercel Analytics, metadata
     page.tsx               Composes the page sections (below)
     globals.css            Design tokens and Tailwind theme
     work-experience.json   Data for the Experience section
@@ -29,18 +31,20 @@ src/
   components/
     home-page/             Site-specific components
     ui/                    shadcn-generated components (Base UI variant)
-  stories/                 Storybook stories for home-page components
-  lib/utils.ts             Re-exports `cn`
+  stories/                 Storybook stories for home-page components and Button
+  lib/utils.ts             `cn`, built with `createCn` from `cn/config` to register the heading type scale
   lib/follow-url.ts        `followUrl(href, download?)`: clicks a temporary link so a button can download or open mailto:
 public/                    Static assets, including Jenna_Neifert_Resume.pdf
-.storybook/                Storybook config; preview wraps stories in ThemeProvider
+.storybook/                Storybook config; preview wraps stories in ThemeProvider and MotionProvider
 ```
 
 `@/*` maps to `src/*`.
 
 ### Page composition
 
-`page.tsx` renders `SiteHeader` → `<main>` (`Hero`, `About`, `Experience`, `Contact`) → `SiteFooter`. Each section is a `<section id>` labelled by its heading, and the nav links to `#about`, `#experience` and `#contact`.
+`page.tsx` renders `SiteHeader` → `<main>` (`Hero`, `About`, `Experience`, `Contact`) → `SiteFooter`. The nav links to `#about`, `#experience` and `#contact`; the logo links to `#hero`.
+
+Every section renders through `Section({ id, title, headingLevel, className, children })`: a `<section id>` labelled by its heading, whose id comes from `useId`. `headingLevel` is `"h1"` (`text-heading-lg`, Hero only) or `"h2"` (default, `text-heading-md`). It owns the shared layout (`max-w-5xl`, gutters, vertical padding); pass `className` only for one-off spacing (Experience uses `gap-6 pt-0`).
 
 ### Components (`src/components/home-page/`)
 
@@ -50,11 +54,13 @@ public/                    Static assets, including Jenna_Neifert_Resume.pdf
 | `sticky-header.tsx`                      | Client            | Sets `data-compact` on `<header>` when scrolling down. Uses rAF throttling, a minimum scroll delta and a lock window to prevent resize flicker (300ms, or 100ms with motion off). Transitions are gated on `motion-allowed:`. Children style via `group-data-[compact=true]:`. |
 | `mobile-nav.tsx`                         | Client            | Right-side `Sheet` with nav links and `DisplayPreferences`.                                                                                                                                                                                                                    |
 | `display-preferences.tsx`                | Client            | Popover with a light/dark theme `ToggleGroup` and an animations `Switch`.                                                                                                                                                                                                      |
-| `hero.tsx`                               | Client            | Intro with "Download resume (PDF)" and "Contact me" (`mailto:`) buttons, both using `followUrl`.                                                                                                                                                                               |
+| `motion-provider.tsx`                    | Client            | Owns the motion preference (see Display preferences); `useMotionPreference()` returns `[enabled, setEnabled]`.                                                                                                                                                                 |
+| `section.tsx`                            | Server            | `Section` wrapper used by every page section (see Page composition).                                                                                                                                                                                                           |
+| `hero.tsx`                               | Client            | Intro with "Download resume (PDF)" (`secondary`) and "Contact me" (`default`, `mailto:`) buttons, both using `followUrl`.                                                                                                                                                       |
 | `about.tsx`                              | Server            | Static bio.                                                                                                                                                                                                                                                                    |
-| `experience.tsx` / `experience-card.tsx` | Server            | Maps `work-experience.json` to cards.                                                                                                                                                                                                                                          |
+| `experience.tsx` / `experience-card.tsx` | Server            | Maps `work-experience.json` to cards. An `endDate` of `"Present"` (or none) is passed as `undefined` and shown as plain text, not a `<time>`. Job titles are `h3` in `text-heading-sm`; technologies are `Badge variant="tag"` rendered as `<li>`.                              |
 | `contact.tsx` / `contact-card.tsx`       | Server / Client   | Maps `contact-list.json` to cards; each card maps its `actions` to `ActionIconButton` and owns the copied state and `aria-live` region.                                                                                                                                        |
-| `action-icon-button.tsx`                 | Client (via card) | Icon-only contact action. Email and open are `<a>` links; copy and download are `<Button type="button">`. Renders nothing for a link action without `href`.                                                                                                                    |
+| `action-icon-button.tsx`                 | Client (via card) | Icon-only contact action using the `action` button variant. Email and open are `<a>` links; copy and download are `<Button type="button">`. Renders nothing for a link action without `href`.                                                                                  |
 | `site-footer.tsx`                        | Server            | Footer.                                                                                                                                                                                                                                                                        |
 
 ### Display preferences
@@ -65,7 +71,26 @@ public/                    Static assets, including Jenna_Neifert_Resume.pdf
 
 ### Styling
 
-Tokens are defined in `globals.css` in two layers: raw `--palette-*` colors, then semantic role tokens in `:root` and `.dark` that point at the palette, mapped through `@theme inline`. Components use only the semantic layer. `primary` is the strong indigo fill (main action, checked and pressed states); `secondary` is the quiet fill. Use the custom type scale (`text-heading-lg`, `text-heading-md`, `text-heading-sm`) and semantic color utilities (`bg-background`, `text-foreground`, `bg-header`, etc.) rather than raw values or `--palette-*` variables.
+Tokens are defined in `globals.css` in two layers: raw `--palette-*` colors, then semantic role tokens in `:root` and `.dark` that point at the palette, mapped through `@theme inline`. Components use only the semantic layer. `primary` is the strong indigo fill (main action, checked and pressed states); `secondary` is the quiet fill. Use semantic color utilities (`bg-background`, `text-foreground`, `bg-header`, etc.) rather than raw values or `--palette-*` variables.
+
+Typography: headings use the custom scale, which sets size, weight and line-height together, so don't add `leading-*` or `font-*` to headings:
+
+- `text-heading-lg`: fluid, `clamp(2.5rem, 6vw + 1rem, 4rem)`, weight 700 (the `h1`)
+- `text-heading-md`: 1.625rem, weight 600 (section `h2`s)
+- `text-heading-sm`: 1.25rem, weight 600 (card `h3`s, popover title)
+
+Body text uses Tailwind's default sizes (`text-sm`, `text-base`, `text-lg`).
+
+A base-layer rule in `globals.css` gives every enabled `button` and `[role="button"]` a pointer cursor, so don't add `cursor-pointer`.
+
+### Customized primitives
+
+These `ui/` components have project-specific variants. Prefer a variant over overriding classes at the call site.
+
+- `Button`: `default` (indigo, main action) and `secondary` (quiet) include `border-input`; `action` is the icon-only contact button with an underline bar; `link` expects an inner `link-underline` span. Every variant includes `group/underline`.
+- `Card`: edge is `border border-border` (stays visible in forced colors); `size="lg"` sets 24px padding and is used by both site cards.
+- `NavigationMenuLink`: `variant="plain"` is a text link with no hover/focus/active fill and built-in `group/underline` (used by the header nav).
+- `Badge`: `variant="tag"` is the technology chip.
 
 ## Next.js 16 notes
 
@@ -93,7 +118,7 @@ Accessibility is a core requirement. Follow existing patterns:
 - Decorative icons get `aria-hidden`; icon-only buttons get `aria-label`.
 - Announce transient state changes with an `aria-live` region.
 - Gate transitions with the `motion-allowed:` variant (defined in `globals.css`). It matches `html[data-motion="on"]`, or the OS `prefers-reduced-motion: no-preference` before `data-motion` is set, so it obeys the in-app toggle. `motion-reduce:` reads the OS setting only.
-- Hover and focus underlines use the `link-underline` utility: a `currentColor` gradient that draws in on `hover` / `focus-visible` and appears instantly with motion off. Put it on the link itself, or on an inline child `<span>` when the trigger has its own `transition-*` or is not inline (buttons, `NavigationMenuLink`, flex links); the trigger then gets `group/underline`. `Button` and `buttonVariants` already include `group/underline`, so a button only needs the inner `<span className="link-underline">`. Don't use `hover:underline`.
+- Hover and focus underlines use the `link-underline` utility: a `currentColor` gradient that draws in on `hover` / `focus-visible` and appears instantly with motion off. Put it on the link itself, or on an inline child `<span>` when the trigger has its own `transition-*` or is not inline (buttons, `NavigationMenuLink`, flex links); the trigger then gets `group/underline`. `Button`, `buttonVariants` and `NavigationMenuLink variant="plain"` already include `group/underline`, so they only need the inner `<span className="link-underline">`. Don't use `hover:underline`.
 - `scroll-padding-top: 7rem` on `html` keeps anchor targets clear of the sticky header.
 
 ## Working preferences
