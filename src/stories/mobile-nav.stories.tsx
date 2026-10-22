@@ -3,6 +3,7 @@ import { expect, within } from 'storybook/test';
 import { MobileNav } from '@/components/layout/mobile-nav';
 
 const meta = {
+  title: 'Patterns/Mobile Nav',
   component: MobileNav,
   tags: ['ai-generated'],
   args: {

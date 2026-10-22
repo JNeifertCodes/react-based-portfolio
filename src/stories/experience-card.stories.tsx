@@ -3,6 +3,7 @@ import { expect } from 'storybook/test';
 import { ExperienceCard } from '@/components/sections/experience-card';
 
 const meta = {
+  title: 'Sections/Experience Card',
   component: ExperienceCard,
   tags: ['ai-generated'],
   args: {
