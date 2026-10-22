@@ -1,0 +1,48 @@
+import type { ContactAction } from "@/components/sections/contact-icon-button";
+
+type ContactItem = {
+  id: string;
+  label: string;
+  value: string;
+  href?: string;
+  actions: ContactAction[];
+};
+
+export const contactList = [
+  {
+    id: "email",
+    label: "Email",
+    value: "jennamwneifert@gmail.com",
+    href: "mailto:jennamwneifert@gmail.com",
+    actions: ["email", "copy"],
+  },
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    value: "https://www.linkedin.com/in/jenna-neifert",
+    href: "https://www.linkedin.com/in/jenna-neifert",
+    actions: ["copy", "open"],
+  },
+  {
+    id: "github",
+    label: "GitHub",
+    value: "https://github.com/JNeifertCodes",
+    href: "https://github.com/JNeifertCodes",
+    actions: ["copy", "open"],
+  },
+  {
+    id: "resume",
+    label: "Resume",
+    value: "Jenna_Neifert_Resume",
+    href: "/Jenna_Neifert_Resume.pdf",
+    actions: ["download", "open"],
+  },
+  {
+    id: "location",
+    label: "Location / time zone",
+    value: "Mechanicsburg, PA. ET Time Zone.",
+    actions: [],
+  },
+] satisfies ContactItem[];
+
+export type { ContactItem };

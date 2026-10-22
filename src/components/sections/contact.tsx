@@ -1,6 +1,6 @@
-import contactList from "@/app/contact-list.json";
+import { contactList } from "@/content/contact-list";
 
-import { ContactCard, type ContactAction } from "./contact-card";
+import { ContactCard } from "./contact-card";
 import { Section } from "./section";
 import { SectionText } from "./section-text";
 
@@ -20,8 +20,8 @@ export function Contact() {
             <ContactCard
               label={item.label}
               value={item.value}
-              href={item.href ?? undefined}
-              actions={item.actions as ContactAction[]}
+              href={item.href}
+              actions={item.actions}
             />
           </li>
         ))}
