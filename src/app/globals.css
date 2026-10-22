@@ -91,8 +91,6 @@ html {
   }
 }
 
-/* TODO: adjust color contrast*/
-
 :root {
   --palette-white: #ffffff;
   --palette-mist-50: #f7fbfc;
@@ -101,53 +99,57 @@ html {
   --palette-violet-100: #ede9fe;
   --palette-violet-150: #eae0ff;
   --palette-violet-200: #e9d7ff;
-  --palette-violet-300: #c7b8f5;
+  --palette-violet-250: #d6cbfa;
+  --palette-violet-500: #8a7dd1;
 
   --palette-purple-800: #6a12ad;
   --palette-purple-900: #5d1d95;
 
   --palette-indigo-300: #a5a9f5;
   --palette-indigo-700: #4338ca;
+  --palette-indigo-800: #3730a3;
+  --palette-indigo-900: #25206e;
 
-  --palette-ink-800: #2e3152;
+  --palette-ink-500: #686da6;
   --palette-ink-850: #1d2036;
   --palette-ink-900: #171a2d;
   --palette-ink-950: #0f1020;
   --palette-navy-950: #0f0030;
 
-  --palette-red-600: oklch(0.577 0.245 27.325);
+  --palette-red-300: #fca5a5;
+  --palette-red-900: #7f1d1d;
 }
 
 /* Semantic */
 :root {
   --background: var(--palette-mist-50);
-  --foreground: var(--palette-indigo-700);
+  --foreground: var(--palette-indigo-800);
   --card: var(--palette-white);
-  --card-foreground: var(--palette-indigo-700);
+  --card-foreground: var(--palette-indigo-800);
   --popover: var(--palette-white);
-  --popover-foreground: var(--palette-indigo-700);
+  --popover-foreground: var(--palette-indigo-800);
   --header: var(--palette-violet-150);
 
   /* Strong brand fill: main call to action, checked and pressed states */
-  --primary: var(--palette-indigo-700);
+  --primary: var(--palette-indigo-900);
   --primary-foreground: var(--palette-white);
 
   /* Quiet fill: secondary actions */
   --secondary: var(--palette-white);
-  --secondary-foreground: var(--palette-indigo-700);
+  --secondary-foreground: var(--palette-indigo-800);
 
   /* Subtle fill: icon buttons, hover, unchecked controls */
   --muted: var(--palette-violet-50);
-  --muted-foreground: var(--palette-indigo-700);
+  --muted-foreground: var(--palette-indigo-800);
 
   /* Decorative fill: tags */
   --accent: var(--palette-violet-100);
-  --accent-foreground: var(--palette-indigo-700);
+  --accent-foreground: var(--palette-indigo-800);
 
-  --destructive: var(--palette-red-600);
-  --destructive-foreground: var(--palette-red-600);
-  --border: var(--palette-violet-300);
-  --input: var(--palette-violet-300);
+  --destructive: var(--palette-red-900);
+  --destructive-foreground: var(--palette-red-900);
+  --border: var(--palette-violet-500);
+  --input: var(--palette-violet-500);
   --ring: var(--palette-purple-800);
   --radius: 0.5rem;
 }
@@ -161,8 +163,8 @@ html {
   --popover-foreground: var(--palette-violet-200);
   --header: var(--palette-navy-950);
 
-  --primary: var(--palette-indigo-700);
-  --primary-foreground: var(--palette-white);
+  --primary: var(--palette-violet-250);
+  --primary-foreground: var(--palette-ink-950);
 
   --secondary: var(--palette-ink-900);
   --secondary-foreground: var(--palette-violet-200);
@@ -173,7 +175,9 @@ html {
   --accent: var(--palette-purple-900);
   --accent-foreground: var(--palette-white);
 
-  --border: var(--palette-ink-800);
+  --destructive: var(--palette-red-300);
+  --destructive-foreground: var(--palette-red-300);
+  --border: var(--palette-ink-500);
   --input: var(--palette-indigo-700);
   --ring: var(--palette-indigo-300);
 }

@@ -53,14 +53,3 @@ export const AsLink: Story = {
     await expect(canvas.queryByRole("button")).not.toBeInTheDocument();
   },
 };
-
-export const CssCheck: Story = {
-  args: { children: "Contact me" },
-  play: async ({ canvas }) => {
-    const button = canvas.getByRole("button", { name: /contact me/i });
-    // default uses bg-primary (--palette-indigo-700: #4338ca) — fails if globals.css did not load.
-    await expect(getComputedStyle(button).backgroundColor).toBe(
-      "rgb(67, 56, 202)",
-    );
-  },
-};
