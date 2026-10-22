@@ -3,6 +3,7 @@ import { expect, waitFor, within } from 'storybook/test';
 import { DisplayPreferences } from '@/components/layout/display-preferences';
 
 const meta = {
+  title: 'Patterns/Display Preferences',
   component: DisplayPreferences,
   tags: ['ai-generated'],
 } satisfies Meta<typeof DisplayPreferences>;

@@ -3,6 +3,7 @@ import { expect } from 'storybook/test';
 import { ContactCard } from '@/components/sections/contact-card';
 
 const meta = {
+  title: 'Sections/Contact Card',
   component: ContactCard,
   tags: ['ai-generated'],
   args: {

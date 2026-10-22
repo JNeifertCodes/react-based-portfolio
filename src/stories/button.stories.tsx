@@ -4,6 +4,7 @@ import { Mail } from "lucide-react";
 import { Button, buttonVariants } from "../components/ui/button";
 
 const meta = {
+  title: "Primitives/Button",
   component: Button,
   tags: ["ai-generated"],
   args: { children: "Download resume (PDF)" },

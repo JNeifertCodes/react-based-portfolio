@@ -3,6 +3,7 @@ import { expect, fn, spyOn } from "storybook/test";
 import { ContactIconButton } from "@/components/sections/contact-icon-button";
 
 const meta = {
+  title: "Patterns/Contact Icon Button",
   component: ContactIconButton,
   args: {
     action: "email",
