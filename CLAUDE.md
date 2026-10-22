@@ -89,7 +89,7 @@ A base-layer rule in `globals.css` gives every enabled `button` and `[role="butt
 
 These `ui/` components have project-specific variants. Prefer a variant over overriding classes at the call site.
 
-- `Button`: `default` (indigo, main action) and `secondary` (quiet) include `border-input`; `action` is the icon-only contact button with an underline bar; `link` expects an inner `link-underline` span. Every variant includes `group/underline`.
+- `Button`: `default` (indigo, main action) and `secondary` (quiet) include `border-input`; `action` is the icon-only contact button with an underline bar; `link` expects an inner `link-underline` span. Every variant includes `group/underline`. `buttonVariants` runs the `cva` output through `cn`, so variant classes (e.g. `border-input`) replace conflicting base classes (`border-transparent`) when styling a plain `<a>`; without the merge, CSS order lets the base class win.
 - `Card`: edge is `border border-border` (stays visible in forced colors); `size="lg"` sets 24px padding and is used by both site cards.
 - `NavigationMenuLink`: `variant="plain"` is a text link with no hover/focus/active fill and built-in `group/underline` (used by the header nav).
 - `Badge`: `variant="tag"` is the technology chip.

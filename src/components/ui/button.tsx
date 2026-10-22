@@ -17,11 +17,7 @@ const buttonCva = cva(
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
         destructive:
           "border-destructive bg-background text-destructive hover:bg-muted",
-        // Wrap the label in <span className="link-underline"> for the hover
-        // and focus underline; the base class makes the button its group.
         link: "text-primary",
-        // Icon-only contact actions: a short bar draws in under the icon on
-        // hover and focus.
         action:
           "relative border-border bg-muted hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50 after:absolute after:bottom-1.5 after:left-1/2 after:h-0.5 after:w-4 after:-translate-x-1/2 after:origin-left after:scale-x-0 after:bg-current hover:after:scale-x-100 focus-visible:after:scale-x-100 motion-allowed:after:transition-transform motion-allowed:after:duration-250 motion-allowed:after:ease-out",
       },
@@ -46,8 +42,6 @@ const buttonCva = cva(
   }
 )
 
-// Merged so variant classes (e.g. border-input) replace conflicting base ones
-// (border-transparent) when the classes style a plain <a>.
 function buttonVariants(props?: Parameters<typeof buttonCva>[0]) {
   return cn(buttonCva(props))
 }
