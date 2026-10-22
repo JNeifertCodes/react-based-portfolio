@@ -3,6 +3,7 @@ import { expect } from 'storybook/test';
 import { SiteHeader } from '@/components/layout/site-header';
 
 const meta = {
+  title: 'Patterns/Site Header',
   component: SiteHeader,
   tags: ['ai-generated'],
   parameters: { layout: 'fullscreen' },

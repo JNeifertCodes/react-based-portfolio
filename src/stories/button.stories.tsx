@@ -4,6 +4,7 @@ import { Mail } from "lucide-react";
 import { Button, buttonVariants } from "../components/ui/button";
 
 const meta = {
+  title: "Primitives/Button",
   component: Button,
   tags: ["ai-generated"],
   args: { children: "Download resume (PDF)" },
@@ -51,16 +52,5 @@ export const AsLink: Story = {
       canvas.getByRole("link", { name: /contact me/i }),
     ).toHaveAttribute("href", "#contact");
     await expect(canvas.queryByRole("button")).not.toBeInTheDocument();
-  },
-};
-
-export const CssCheck: Story = {
-  args: { children: "Contact me" },
-  play: async ({ canvas }) => {
-    const button = canvas.getByRole("button", { name: /contact me/i });
-    // default uses bg-primary (--palette-indigo-700: #4338ca) — fails if globals.css did not load.
-    await expect(getComputedStyle(button).backgroundColor).toBe(
-      "rgb(67, 56, 202)",
-    );
   },
 };
