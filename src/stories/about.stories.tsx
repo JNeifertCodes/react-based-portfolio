@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { About } from '@/components/home-page/about';
+import { About } from '@/components/sections/about';
 
 const meta = {
   component: About,

@@ -2,8 +2,8 @@
 
 import { useId } from "react";
 
-import { Section } from "@/components/home-page/section";
-import { SectionText } from "@/components/home-page/section-text";
+import { Section } from "@/components/sections/section";
+import { SectionText } from "@/components/sections/section-text";
 import { Button } from "@/components/ui/button";
 import { followUrl } from "@/lib/follow-url";
 

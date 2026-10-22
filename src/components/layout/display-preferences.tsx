@@ -1,16 +1,12 @@
 "use client";
 
-import {
-  useId,
-  useLayoutEffect,
-  useRef,
-  useState,
-  useSyncExternalStore,
-} from "react";
+import { useId, useState } from "react";
 import { useTheme } from "@wrksz/themes/client";
 import { Check } from "lucide-react";
 
-import { useMotionPreference } from "@/components/home-page/motion-provider";
+import { useMotionPreference } from "@/components/providers/motion-provider";
+import { useMounted } from "@/hooks/use-mounted";
+import { usePopoverPlacement } from "@/hooks/use-popover-placement";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -24,66 +20,7 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
-const MOBILE_QUERY = "(max-width: 760px)";
-const VIEWPORT_GUTTER = 16;
 const SIDE_OFFSET = 8;
-
-const subscribeNoop = () => () => {};
-
-function useMounted() {
-  return useSyncExternalStore(
-    subscribeNoop,
-    () => true,
-    () => false,
-  );
-}
-
-function usePopoverPlacement(open: boolean) {
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const [popup, setPopup] = useState<HTMLDivElement | null>(null);
-  const [centered, setCentered] = useState(false);
-
-  useLayoutEffect(() => {
-    if (!open || !popup) return;
-
-    const update = () => {
-      const trigger = triggerRef.current;
-      if (!trigger) return;
-
-      if (!window.matchMedia(MOBILE_QUERY).matches) {
-        setCentered(false);
-        return;
-      }
-
-      const viewportHeight =
-        window.visualViewport?.height ?? window.innerHeight;
-      const spaceBelow =
-        viewportHeight -
-        trigger.getBoundingClientRect().bottom -
-        SIDE_OFFSET -
-        VIEWPORT_GUTTER;
-
-      setCentered(popup.scrollHeight > spaceBelow);
-    };
-
-    // ResizeObserver fires once on observe (after layout, before paint),
-    // which covers the initial measurement.
-    const observer = new ResizeObserver(update);
-    observer.observe(popup);
-    window.addEventListener("resize", update);
-    window.addEventListener("scroll", update, { passive: true });
-    window.visualViewport?.addEventListener("resize", update);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", update);
-      window.removeEventListener("scroll", update);
-      window.visualViewport?.removeEventListener("resize", update);
-    };
-  }, [open, popup]);
-
-  return { triggerRef, popupRef: setPopup, centered };
-}
 
 const themeOptions = [
   { value: "light", label: "Light" },
@@ -95,7 +32,7 @@ export function DisplayPreferences() {
   const mounted = useMounted();
   const [animations, setAnimations] = useMotionPreference();
   const [open, setOpen] = useState(false);
-  const { triggerRef, popupRef, centered } = usePopoverPlacement(open);
+  const { triggerRef, popupRef, centered } = usePopoverPlacement(open, SIDE_OFFSET);
 
   const themeLabelId = useId();
   const animationsLabelId = useId();

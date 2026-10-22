@@ -5,7 +5,7 @@ import { useId, useState, useEffect } from "react";
 import {
   ActionIconButton,
   type ContactAction,
-} from "@/components/home-page/action-icon-button";
+} from "@/components/sections/action-icon-button";
 import { Card, CardContent } from "@/components/ui/card";
 
 type ContactCardProps = {

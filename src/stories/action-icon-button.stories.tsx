@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect, fn, spyOn } from 'storybook/test';
-import { ActionIconButton } from '@/components/home-page/action-icon-button';
+import { ActionIconButton } from '@/components/sections/action-icon-button';
 
 const meta = {
   component: ActionIconButton,

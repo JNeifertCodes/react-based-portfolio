@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect } from 'storybook/test';
 import contactList from '@/app/contact-list.json';
-import { Contact } from '@/components/home-page/contact';
+import { Contact } from '@/components/sections/contact';
 
 const meta = {
   component: Contact,

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect, waitFor, within } from 'storybook/test';
-import { DisplayPreferences } from '@/components/home-page/display-preferences';
+import { DisplayPreferences } from '@/components/layout/display-preferences';
 
 const meta = {
   component: DisplayPreferences,

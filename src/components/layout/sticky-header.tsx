@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useMotionPreference } from "@/components/home-page/motion-provider";
+import { useMotionPreference } from "@/components/providers/motion-provider";
 
 const TOP_ZONE = 16; // px from top where the header is always full size
 const MIN_DELTA = 8; // px of scroll needed before reacting
