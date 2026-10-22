@@ -45,7 +45,9 @@ export const Resume: Story = {
       'target',
       '_blank',
     );
-    await expect(canvas.getByRole('button', { name: 'Download Resume' }).tagName).toBe('BUTTON');
+    await expect(canvas.getByRole('link', { name: 'Download Resume' })).toHaveAttribute(
+      'download',
+    );
   },
 };
 

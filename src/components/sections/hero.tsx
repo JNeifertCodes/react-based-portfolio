@@ -1,11 +1,8 @@
-"use client";
-
 import { useId } from "react";
 
 import { Section } from "@/components/sections/section";
 import { SectionText } from "@/components/sections/section-text";
-import { Button } from "@/components/ui/button";
-import { followUrl } from "@/lib/follow-url";
+import { buttonVariants } from "@/components/ui/button";
 
 const RESUME_HREF = "/Jenna_Neifert_Resume.pdf";
 const RESUME_FILENAME = "Jenna_Neifert_Resume.pdf";
@@ -29,23 +26,21 @@ export function Hero() {
       </SectionText>
 
       <div className="mt-1 flex flex-wrap items-center justify-between gap-4">
-        <Button
-          type="button"
-          variant="secondary"
-          size="lg"
-          onClick={() => followUrl(RESUME_HREF, RESUME_FILENAME)}
+        <a
+          href={RESUME_HREF}
+          download={RESUME_FILENAME}
+          className={buttonVariants({ variant: "secondary", size: "lg" })}
         >
           <span className="link-underline">Download resume (PDF)</span>
-        </Button>
+        </a>
 
-        <Button
-          type="button"
-          size="lg"
-          onClick={() => followUrl(`mailto:${EMAIL}`)}
+        <a
+          href={`mailto:${EMAIL}`}
+          className={buttonVariants({ size: "lg" })}
           aria-describedby={contactDescriptionId}
         >
           <span className="link-underline">Contact me</span>
-        </Button>
+        </a>
         <span id={contactDescriptionId} className="sr-only">
           Opens your email app to write to {EMAIL}
         </span>

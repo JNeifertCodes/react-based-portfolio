@@ -1,7 +1,6 @@
 import { Check, Copy, Download, ExternalLink, Mail } from "lucide-react";
 
 import { Button, buttonVariants } from "@/components/ui/button";
-import { followUrl } from "@/lib/follow-url";
 
 type ContactAction = "email" | "copy" | "download" | "open";
 
@@ -17,8 +16,8 @@ type ContactIconButtonProps = {
 const variant = "action";
 const size = "icon-lg";
 
-// Navigation actions (email, open) are real links styled as buttons, so screen
-// readers announce them as links. Copy and download are buttons.
+// Actions that follow a URL (email, download, open) are real links styled as
+// buttons, so screen readers announce them as links. Copy is a button.
 const linkClassName = buttonVariants({ variant, size });
 
 function ContactIconButton({
@@ -46,21 +45,18 @@ function ContactIconButton({
   // Email, download and open all need somewhere to go.
   if (!href) return null;
 
-  if (action === "download") {
-    return (
-      <Button
-        type="button"
-        variant={variant}
-        size={size}
-        onClick={() => followUrl(href, href.split("/").pop())}
-        aria-label={`Download ${label}`}
-      >
-        <Download aria-hidden="true" />
-      </Button>
-    );
-  }
-
   switch (action) {
+    case "download":
+      return (
+        <a
+          href={href}
+          download={href.split("/").pop()}
+          className={linkClassName}
+          aria-label={`Download ${label}`}
+        >
+          <Download aria-hidden="true" />
+        </a>
+      );
     case "email":
       return (
         <a

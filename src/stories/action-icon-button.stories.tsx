@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { expect, fn, spyOn } from "storybook/test";
+import { expect, fn } from "storybook/test";
 import { ContactIconButton } from "@/components/sections/contact-icon-button";
 
 const meta = {
@@ -60,29 +60,10 @@ export const Download: Story = {
     label: "Resume",
     href: "/Jenna_Neifert_Resume.pdf",
   },
-  play: async ({ canvas, userEvent }) => {
-    const button = canvas.getByRole("button", { name: "Download Resume" });
-    await expect(button.tagName).toBe("BUTTON");
-    await expect(button).toHaveAttribute("type", "button");
-    await expect(button).not.toHaveAttribute("href");
-
-    // Catch the temporary link the button clicks, without downloading a file.
-    const followed: HTMLAnchorElement[] = [];
-    const spy = spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(
-      function (this: HTMLAnchorElement) {
-        followed.push(this);
-      },
-    );
-    try {
-      await userEvent.click(button);
-      // Keyboard users can download too.
-      await userEvent.keyboard("{Enter}");
-      await expect(followed).toHaveLength(2);
-      await expect(followed[0].pathname).toBe("/Jenna_Neifert_Resume.pdf");
-      await expect(followed[0].download).toBe("Jenna_Neifert_Resume.pdf");
-    } finally {
-      spy.mockRestore();
-    }
+  play: async ({ canvas }) => {
+    const link = canvas.getByRole("link", { name: "Download Resume" });
+    await expect(link).toHaveAttribute("href", "/Jenna_Neifert_Resume.pdf");
+    await expect(link).toHaveAttribute("download", "Jenna_Neifert_Resume.pdf");
   },
 };
 

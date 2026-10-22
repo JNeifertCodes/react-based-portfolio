@@ -36,7 +36,6 @@ src/
   hooks/                   Shared hooks: `useMounted`, `usePopoverPlacement` (`@/hooks` alias in components.json)
   stories/                 Storybook stories for site components and Button
   lib/utils.ts             `cn`, built with `createCn` from `cn/config` to register the heading type scale
-  lib/follow-url.ts        `followUrl(href, download?)`: clicks a temporary link so a button can download or open mailto:
 public/                    Static assets, including Jenna_Neifert_Resume.pdf
 .storybook/                Storybook config; preview wraps stories in ThemeProvider and MotionProvider
 ```
@@ -59,11 +58,11 @@ Every section renders through `Section({ id, title, headingLevel, className, chi
 | `layout/display-preferences.tsx`                  | Client            | Popover with a light/dark theme `ToggleGroup` and an animations `Switch`.                                                                                                                                                                                                      |
 | `providers/motion-provider.tsx`                   | Client            | Owns the motion preference (see Display preferences); `useMotionPreference()` returns `[enabled, setEnabled]`.                                                                                                                                                                 |
 | `sections/section.tsx`                            | Server            | `Section` wrapper used by every page section (see Page composition).                                                                                                                                                                                                           |
-| `sections/hero.tsx`                               | Client            | Intro with "Download resume (PDF)" (`secondary`) and "Contact me" (`default`, `mailto:`) buttons, both using `followUrl`.                                                                                                                                                      |
+| `sections/hero.tsx`                               | Server            | Intro with "Download resume (PDF)" (`secondary`, `<a download>`) and "Contact me" (`default`, `mailto:`) links styled with `buttonVariants`.                                                                                                                                   |
 | `sections/about.tsx`                              | Server            | Static bio.                                                                                                                                                                                                                                                                    |
 | `sections/experience.tsx` / `experience-card.tsx` | Server            | Maps `work-experience.json` to cards. An `endDate` of `"Present"` (or none) is passed as `undefined` and shown as plain text, not a `<time>`. Job titles are `h3` in `text-heading-sm`; technologies are `Badge variant="tag"` rendered as `<li>`.                             |
 | `sections/contact.tsx` / `contact-card.tsx`       | Server / Client   | Maps `contact-list.json` to cards; each card maps its `actions` to `ContactIconButton` and owns the copied state and `aria-live` region.                                                                                                                                       |
-| `sections/contact-icon-button.tsx`                | Client (via card) | Icon-only contact action using the `action` button variant. Email and open are `<a>` links; copy and download are `<Button type="button">`. Renders nothing for a link action without `href`.                                                                                  |
+| `sections/contact-icon-button.tsx`                | Client (via card) | Icon-only contact action using the `action` button variant. Email, download and open are `<a>` links; copy is a `<Button type="button">`. Renders nothing for a link action without `href`.                                                                                  |
 | `layout/site-footer.tsx`                          | Server            | Footer.                                                                                                                                                                                                                                                                        |
 
 ### Display preferences
@@ -90,7 +89,7 @@ A base-layer rule in `globals.css` gives every enabled `button` and `[role="butt
 
 These `ui/` components have project-specific variants. Prefer a variant over overriding classes at the call site.
 
-- `Button`: `default` (indigo, main action) and `secondary` (quiet) include `border-input`; `action` is the icon-only contact button with an underline bar; `link` expects an inner `link-underline` span. Every variant includes `group/underline`.
+- `Button`: `default` (indigo, main action) and `secondary` (quiet) include `border-input`; `action` is the icon-only contact button with an underline bar; `link` expects an inner `link-underline` span. Every variant includes `group/underline`. `buttonVariants` runs the `cva` output through `cn`, so variant classes (e.g. `border-input`) replace conflicting base classes (`border-transparent`) when styling a plain `<a>`; without the merge, CSS order lets the base class win.
 - `Card`: edge is `border border-border` (stays visible in forced colors); `size="lg"` sets 24px padding and is used by both site cards.
 - `NavigationMenuLink`: `variant="plain"` is a text link with no hover/focus/active fill and built-in `group/underline` (used by the header nav).
 - `Badge`: `variant="tag"` is the technology chip.
@@ -107,7 +106,7 @@ Check `node_modules/next/dist/docs/` before using any Next API. Already in use:
 
 - `components.json` uses the `base-nova` style, built on `@base-ui/react` (not Radix).
 - Compose with `render={<Element />}`, not `asChild`.
-- Use `Button` only for actions (copy, download, open the mail app). A link that should look like a button is a plain `<a>` styled with `buttonVariants({ variant, size })`; don't render `<a>` through `Button` with `nativeButton={false}`, because Base UI adds `role="button"`.
+- Use `Button` only for in-page actions (copy, toggle, open a popover or sheet). Anything that follows a URL, including file downloads and `mailto:`, is a link, so it appears in screen reader link lists, supports "Save link as" / "Copy link address" and works before hydration. A link that should look like a button is a plain `<a>` styled with `buttonVariants({ variant, size })`; don't render `<a>` through `Button` with `nativeButton={false}`, because Base UI adds `role="button"`.
 - State is exposed via attributes: `data-open`, `data-highlighted`, `aria-pressed`, `aria-checked`.
 - `PopoverContent` accepts a custom `positionerClassName` prop passed to the Positioner.
 - Import `cn` from `"@/lib/utils"`, never from `"cn"` directly. `npx shadcn add` generates `from "cn"`, so change it after adding a component, and swap its focus classes for `focus-ring`. The local `cn` registers the custom type scale (`text-heading-*`) as font sizes, so they merge correctly.
