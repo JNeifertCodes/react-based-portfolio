@@ -91,6 +91,8 @@ html {
   }
 }
 
+/* TODO: adjust color contrast*/
+
 :root {
   --palette-white: #ffffff;
   --palette-mist-50: #f7fbfc;
