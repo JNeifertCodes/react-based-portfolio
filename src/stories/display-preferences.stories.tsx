@@ -78,5 +78,7 @@ export const TwoCopiesShareMotion: Story = {
     // Restore the original preference.
     await userEvent.click(body.getByRole('switch', { name: 'Animations' }));
     await userEvent.keyboard('{Escape}');
+    // Let the popover finish closing so the a11y check doesn't run mid-fade.
+    await waitFor(() => expect(body.queryByRole('switch')).not.toBeInTheDocument());
   },
 };
