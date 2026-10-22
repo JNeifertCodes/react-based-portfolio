@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect } from 'storybook/test';
-import { ExperienceCard } from '@/components/home-page/experience-card';
+import { ExperienceCard } from '@/components/sections/experience-card';
 
 const meta = {
   component: ExperienceCard,

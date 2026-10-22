@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { StickyHeader } from "@/components/home-page/sticky-header";
-import { MobileNav } from "@/components/home-page/mobile-nav";
-import { DisplayPreferences } from "@/components/home-page/display-preferences";
-import { SiteContainer } from "@/components/home-page/site-container";
+import { StickyHeader } from "@/components/layout/sticky-header";
+import { MobileNav } from "@/components/layout/mobile-nav";
+import { DisplayPreferences } from "@/components/layout/display-preferences";
+import { SiteContainer } from "@/components/layout/site-container";
 import {
   NavigationMenu,
   NavigationMenuItem,

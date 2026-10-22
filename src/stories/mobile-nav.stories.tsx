@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect, within } from 'storybook/test';
-import { MobileNav } from '@/components/home-page/mobile-nav';
+import { MobileNav } from '@/components/layout/mobile-nav';
 
 const meta = {
   component: MobileNav,

@@ -3,9 +3,9 @@
 import { useId, useState, useEffect } from "react";
 
 import {
-  ActionIconButton,
+  ContactIconButton,
   type ContactAction,
-} from "@/components/home-page/action-icon-button";
+} from "@/components/sections/contact-icon-button";
 import { Card, CardContent } from "@/components/ui/card";
 
 type ContactCardProps = {
@@ -63,7 +63,7 @@ function ContactCard({
         {actions.length > 0 && (
           <div className="flex shrink-0 gap-2">
             {actions.map((action) => (
-              <ActionIconButton
+              <ContactIconButton
                 key={action}
                 action={action}
                 label={label}

@@ -1,9 +1,9 @@
-import { SiteHeader } from "@/components/home-page/site-header";
-import { Hero } from "@/components/home-page/hero";
-import { About } from "@/components/home-page/about";
-import { Contact } from "@/components/home-page/contact";
-import { Experience } from "@/components/home-page/experience";
-import { SiteFooter } from "@/components/home-page/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
+import { Hero } from "@/components/sections/hero";
+import { About } from "@/components/sections/about";
+import { Contact } from "@/components/sections/contact";
+import { Experience } from "@/components/sections/experience";
+import { SiteFooter } from "@/components/layout/site-footer";
 
 export default function Home() {
   return (

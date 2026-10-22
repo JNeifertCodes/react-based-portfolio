@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { expect, spyOn } from "storybook/test";
-import { Hero } from "@/components/home-page/hero";
+import { Hero } from "@/components/sections/hero";
 
 const meta = {
   component: Hero,

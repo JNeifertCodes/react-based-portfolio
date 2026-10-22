@@ -1,4 +1,4 @@
-import workExperience from "@/app/work-experience.json";
+import { workExperience } from "@/content/work-experience";
 
 import { ExperienceCard } from "./experience-card";
 import { Section } from "./section";
@@ -25,7 +25,7 @@ export function Experience() {
               <ExperienceCard
                 role={job.title}
                 company={job.company}
-                companyHref={job.companyUrl ?? undefined}
+                companyHref={job.companyUrl}
                 location={`${job.location} (${job.workArrangement.toLowerCase()})`}
                 startDate={{ label: startLabel, dateTime: job.startDate }}
                 endDate={

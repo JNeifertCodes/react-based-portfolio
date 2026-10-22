@@ -5,7 +5,7 @@ import { followUrl } from "@/lib/follow-url";
 
 type ContactAction = "email" | "copy" | "download" | "open";
 
-type ActionIconButtonProps = {
+type ContactIconButtonProps = {
   action: ContactAction;
   label: string;
   value: string;
@@ -21,14 +21,14 @@ const size = "icon-lg";
 // readers announce them as links. Copy and download are buttons.
 const linkClassName = buttonVariants({ variant, size });
 
-function ActionIconButton({
+function ContactIconButton({
   action,
   label,
   value,
   href,
   copied = false,
   onCopy,
-}: ActionIconButtonProps) {
+}: ContactIconButtonProps) {
   if (action === "copy") {
     return (
       <Button
@@ -86,5 +86,5 @@ function ActionIconButton({
   }
 }
 
-export { ActionIconButton };
-export type { ActionIconButtonProps, ContactAction };
+export { ContactIconButton };
+export type { ContactIconButtonProps, ContactAction };

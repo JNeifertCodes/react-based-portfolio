@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect } from 'storybook/test';
-import { SiteHeader } from '@/components/home-page/site-header';
+import { SiteHeader } from '@/components/layout/site-header';
 
 const meta = {
   component: SiteHeader,

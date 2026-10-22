@@ -1,5 +1,5 @@
-import { Section } from "@/components/home-page/section";
-import { SectionText } from "@/components/home-page/section-text";
+import { Section } from "@/components/sections/section";
+import { SectionText } from "@/components/sections/section-text";
 
 export function About() {
   return (

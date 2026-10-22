@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SiteContainer } from "@/components/home-page/site-container";
+import { SiteContainer } from "@/components/layout/site-container";
 
 export function SiteFooter() {
   return (

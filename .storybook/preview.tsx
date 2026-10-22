@@ -1,6 +1,6 @@
 import type { Preview } from "@storybook/nextjs-vite";
 import { ThemeProvider } from "@wrksz/themes/next";
-import { MotionProvider } from "../src/components/home-page/motion-provider";
+import { MotionProvider } from "../src/components/providers/motion-provider";
 import "../src/app/globals.css";
 
 const preview: Preview = {

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { MenuIcon } from "lucide-react";
-import { DisplayPreferences } from "@/components/home-page/display-preferences";
+import { DisplayPreferences } from "@/components/layout/display-preferences";
 
 import { Button } from "@/components/ui/button";
 import {
