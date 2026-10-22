@@ -3,6 +3,7 @@ import { useId } from "react";
 import { Section } from "@/components/sections/section";
 import { SectionText } from "@/components/sections/section-text";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const RESUME_HREF = "/Jenna_Neifert_Resume.pdf";
 const RESUME_FILENAME = "Jenna_Neifert_Resume.pdf";
@@ -29,14 +30,17 @@ export function Hero() {
         <a
           href={RESUME_HREF}
           download={RESUME_FILENAME}
-          className={buttonVariants({ variant: "secondary", size: "lg" })}
+          className={cn(
+            buttonVariants({ variant: "secondary", size: "lg" }),
+            "max-sm:w-full",
+          )}
         >
           <span className="link-underline">Download resume (PDF)</span>
         </a>
 
         <a
           href={`mailto:${EMAIL}`}
-          className={buttonVariants({ size: "lg" })}
+          className={cn(buttonVariants({ size: "lg" }), "max-sm:w-full")}
           aria-describedby={contactDescriptionId}
         >
           <span className="link-underline">Contact me</span>
