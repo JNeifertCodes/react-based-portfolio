@@ -2,8 +2,8 @@
   "git": {
     "deploymentEnabled": {
       "main": true,
-      "sat/**": true,
-      "feature/**": false
+      "sat-**": true,
+      "feature-**": false
     }
   }
 }
