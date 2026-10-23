@@ -7,6 +7,7 @@ import {
   type ContactAction,
 } from "@/components/sections/contact-icon-button";
 import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 type ContactCardProps = {
   label: string;
@@ -24,6 +25,7 @@ function ContactCard({
   className,
 }: ContactCardProps) {
   const labelId = useId();
+  const hasActions = actions.length > 0;
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -54,13 +56,23 @@ function ContactCard({
     >
       <CardContent className="flex items-center justify-between gap-4">
         <div className="flex min-w-0 flex-col gap-2">
-          <p id={labelId} className="text-sm">
+          <p
+            id={labelId}
+            className={cn("text-sm", hasActions && "max-sm:text-lg")}
+          >
             {label}
           </p>
-          <p className="text-lg break-all">{value}</p>
+          <p
+            className={cn(
+              "text-lg",
+              hasActions ? "break-all max-sm:hidden" : "wrap-break-word",
+            )}
+          >
+            {value}
+          </p>
         </div>
 
-        {actions.length > 0 && (
+        {hasActions && (
           <div className="flex shrink-0 gap-2">
             {actions.map((action) => (
               <ContactIconButton

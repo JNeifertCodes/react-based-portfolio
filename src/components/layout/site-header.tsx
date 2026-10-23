@@ -22,7 +22,7 @@ export function SiteHeader() {
       <SiteContainer className="flex w-full items-center justify-between gap-4 py-8 motion-allowed:transition-[padding] motion-allowed:duration-200 motion-allowed:ease-out group-data-[compact=true]:py-3">
         <Link
           href="#hero"
-          className="rounded-sm p-1 text-base text-foreground link-underline focus-ring"
+          className="rounded-sm p-1 text-heading-md text-foreground md:text-base md:font-normal link-underline focus-ring"
         >
           Jenna Neifert
         </Link>
