@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 // The Vercel Toolbar (comments/feedback) is injected on preview deployments only.
 const isPreview = process.env.VERCEL_ENV === "preview";
+const isDev = process.env.NODE_ENV === "development";
 const toolbar = (...sources: string[]) =>
   isPreview ? ` ${sources.join(" ")}` : "";
 
@@ -9,7 +10,9 @@ const csp = [
   "default-src 'self'",
   // The theme script from @wrksz/themes and Next's prerender data are inline scripts.
   // A nonce would force dynamic rendering, so a static site uses 'unsafe-inline'.
-  `script-src 'self' 'unsafe-inline'${toolbar("https://vercel.live")}`,
+  // Dev only: React uses eval() to rebuild callstacks, and Vercel Analytics
+  // loads its debug script from va.vercel-scripts.com (production uses /_vercel/insights).
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval' https://va.vercel-scripts.com" : ""}${toolbar("https://vercel.live")}`,
   `style-src 'self' 'unsafe-inline'${toolbar("https://vercel.live")}`,
   `img-src 'self' data:${toolbar("https://vercel.live", "https://vercel.com", "blob:")}`,
   `font-src 'self'${toolbar("https://vercel.live", "https://assets.vercel.com")}`,
@@ -30,7 +33,7 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   {
     key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
+    value: "camera=(), microphone=(), geolocation=()",
   },
   {
     key: "Strict-Transport-Security",
