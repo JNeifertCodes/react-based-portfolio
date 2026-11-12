@@ -1,14 +1,21 @@
 import type { NextConfig } from "next";
 
+// The Vercel Toolbar (comments/feedback) is injected on preview deployments only.
+const isPreview = process.env.VERCEL_ENV === "preview";
+const toolbar = (...sources: string[]) =>
+  isPreview ? ` ${sources.join(" ")}` : "";
+
 const csp = [
   "default-src 'self'",
   // The theme script from @wrksz/themes and Next's prerender data are inline scripts.
   // A nonce would force dynamic rendering, so a static site uses 'unsafe-inline'.
-  "script-src 'self' 'unsafe-inline'",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data:",
-  "font-src 'self'",
-  "connect-src 'self'", // Vercel Analytics posts to /_vercel/insights (same origin)
+  `script-src 'self' 'unsafe-inline'${toolbar("https://vercel.live")}`,
+  `style-src 'self' 'unsafe-inline'${toolbar("https://vercel.live")}`,
+  `img-src 'self' data:${toolbar("https://vercel.live", "https://vercel.com", "blob:")}`,
+  `font-src 'self'${toolbar("https://vercel.live", "https://assets.vercel.com")}`,
+  // Vercel Analytics posts to /_vercel/insights (same origin)
+  `connect-src 'self'${toolbar("https://vercel.live", "wss://ws-us3.pusher.com")}`,
+  ...(isPreview ? ["frame-src https://vercel.live"] : []),
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
